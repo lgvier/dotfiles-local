@@ -1,4 +1,3 @@
-Plug 'Lokaltog/vim-powerline'
-Plug 'stephenmckinney/vim-solarized-powerline'
+Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
