@@ -1,0 +1,12 @@
+alias lar='ls -latrh'
+alias https='http --default-scheme=https'
+
+function tl() {
+  echo *$1*(.om[1])
+  tail -f *$1*(.om[1])
+}
+
+function vl() {
+  echo *$1*(.om[1])
+  vim *$1*(.om[1])
+}
