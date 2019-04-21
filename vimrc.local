@@ -1,5 +1,8 @@
 set relativenumber
 
+inoremap <C-q> <esc>:qa<cr>
+nnoremap <C-q> :qa<cr>
+
 "let mapleader = ","
 "set noruler
 "set laststatus=0
