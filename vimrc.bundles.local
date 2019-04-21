@@ -2,3 +2,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+
+UnPlug 'vim-endwise'
+UnPlug 'vim-rails'
+UnPlug 'vim-rake'

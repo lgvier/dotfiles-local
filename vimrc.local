@@ -1,5 +1,9 @@
 set relativenumber
 
+"let mapleader = ","
+"set noruler
+"set laststatus=0
+
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
