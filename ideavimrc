@@ -1,0 +1,15 @@
+set surround
+set multiple-cursors
+set commentary
+
+set number
+set relativenumber
+
+" Insert mode
+inoremap <C-k> <Up>
+inoremap <C-j> <Down>
+inoremap <C-l> <Right>
+inoremap <C-h> <Left>
+
+" Copy until the end of the line
+noremap Y y$

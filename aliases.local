@@ -1,0 +1,5 @@
+alias lar='ls -latrh'
+alias https='http --default-scheme=https'
+alias vim="nvim"
+alias vi="nvim"
+
