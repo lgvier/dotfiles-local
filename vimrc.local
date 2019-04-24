@@ -1,9 +1,18 @@
 set relativenumber
 set nohlsearch
-"let mapleader = ","
+
+" fix mouse integration in tmux
+set mouse=a
 
 inoremap <C-q> <esc>:qa<cr>
 nnoremap <C-q> :qa<cr>
+
+" Change first word
+map ,w ^cw
+
+" reselect visual block after indentation
+vnoremap < <gv
+vnoremap > >gv
 
 " " Copy to clipboard
 vnoremap  <leader>y  "+y
@@ -30,7 +39,10 @@ let g:airline_theme='onehalfdark'
 set termguicolors
 
 " NERDTree
-map <C-n> :NERDTreeToggle<CR>
+map <leader>n :NERDTreeToggle<CR>
+map <leader>, :NERDTreeFind<CR>
+" map <C-n> :NERDTreeToggle<CR>
+" map <C-,> :NERDTreeFind<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
