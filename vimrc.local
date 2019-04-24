@@ -17,6 +17,18 @@ nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
+" Color
+" Set the background theme to dark
+set background = "dark"
+
+" Call the theme one
+" colorscheme molokai
+colorscheme onehalfdark
+let g:airline_theme='onehalfdark'
+
+" This line enables the true color support.
+set termguicolors
+
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1

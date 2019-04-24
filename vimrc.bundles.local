@@ -8,6 +8,9 @@ Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-function'
 Plug 'vim-scripts/argtextobj.vim'
 
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+" Plug 'flazz/vim-colorschemes'
+
 UnPlug 'vim-endwise'
 UnPlug 'vim-rails'
 UnPlug 'vim-rake'
