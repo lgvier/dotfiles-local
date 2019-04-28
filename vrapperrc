@@ -1,0 +1,34 @@
+" Eclipse-style undo
+set noati
+
+" fix indentation
+set noexpandtab
+
+" find
+"set path=.,src/main/java
+"set sufixesadd+=.java
+
+" keyboard shortcuts
+inoremap jj <ESC>
+inoremap kj <ESC>
+" make Y behave like other capitals
+map Y y$
+" Change first word
+map ,w ^cw
+" reselect visual block after indentation
+vnoremap < <gv
+vnoremap > >gv
+
+" no arrow keys
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+" camel case
+nnoremap <s-Left> :WordPrevious<cr>
+" inoremap <c-Left> <c-o>:WordPrevious<cr>
+eclipseaction WordPrevious org.eclipse.ui.edit.text.goto.wordPrevious
+nnoremap <s-Right> :WordNext<cr>
+" inoremap <c-Right> <c-o>:WordNext<cr>
+eclipseaction WordNext org.eclipse.ui.edit.text.goto.wordNext

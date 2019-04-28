@@ -38,6 +38,14 @@ let g:airline_theme='onehalfdark'
 " This line enables the true color support.
 set termguicolors
 
+" vim-projectionist
+let g:projectionist_heuristics = {
+      \   "*": {
+      \     "src/main/java/*.java":     {"alternate": "src/test/java/{dirname}/{basename}Test.java"},
+      \     "src/test/java/*Test.java": {"alternate": "src/main/java/{dirname}/{basename}.java"}
+      \   }
+      \ }
+
 " NERDTree
 map <leader>n :NERDTreeToggle<CR>
 map <leader>, :NERDTreeFind<CR>
@@ -47,7 +55,6 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
 
 " coc
 " if hidden is not set, TextEdit might fail.

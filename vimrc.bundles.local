@@ -1,6 +1,7 @@
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-dispatch'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
