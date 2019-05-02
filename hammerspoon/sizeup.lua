@@ -73,7 +73,7 @@ end)
 -- If you have any ideas, please visit the ticket
 
 --- Snapback Action ---
-hs.hotkey.bind({"ctrl","alt","cmd"}, "Z", function()
+hs.hotkey.bind({"ctrl","alt","cmd"}, "=", function()
 	sizeup.snapback()
 end)
 --- Other Actions ---
