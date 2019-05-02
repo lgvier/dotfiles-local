@@ -83,7 +83,7 @@ hs.hotkey.bind(mash, 'S', launch_slack)
 
 
 function code_layout()
-  launch_chrome()
+  launch_slack()
   launch_terminal()
   hs.mjomatic.go({
     "EEEEEEEEEEEEEESSSSSSSSSS",
