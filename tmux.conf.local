@@ -7,3 +7,14 @@ bind-key C-a send-prefix
 set-option -g mouse on
 bind m run "if [[ `tmux show-options | grep mouse.*on` ]]; then toggle=off; else toggle=on; fi; tmux display-message \"mouse tmux: \$toggle\"; tmux set-option -w mouse \$toggle &> /dev/null;"
 
+set -g @resurrect-strategy-nvim 'session'
+# List of plugins
+ set -g @tpm_plugins '          \
+   tmux-plugins/tpm             \
+   tmux-plugins/tmux-sensible   \
+   tmux-plugins/tmux-resurrect  \
+   tmux-plugins/tmux-continuum \
+ '
+
+ # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+ run '~/.tmux/plugins/tpm/tpm'
