@@ -2,7 +2,7 @@
 
 ## Step 1:
 Clone this repo
-`git clone https://github.com/lgvier/dotfiles-local.git ~/dotfiles-local
+`git clone https://github.com/lgvier/dotfiles-local.git ~/dotfiles-local`
 
 ## Step 2:
 Install https://github.com/thoughtbot/dotfiles
