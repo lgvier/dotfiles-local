@@ -12,7 +12,7 @@ eval $(thefuck --alias f)
 
 if [ "$(uname 2> /dev/null)" != "Linux" ]; then
 # Mac-specific stuff
-function pfd() {
+function ff() {
   osascript 2>/dev/null <<EOF
     tell application "Finder"
       return POSIX path of (target of window 1 as alias)
@@ -20,7 +20,7 @@ function pfd() {
 EOF
 }
 
-function pfs() {
+function ffs() {
   osascript 2>/dev/null <<EOF
     set output to ""
     tell application "Finder" to set the_selection to selection
@@ -34,14 +34,14 @@ EOF
 }
 
 function cdf() {
-  cd "$(pfd)"
+  cd "$(ff)"
 }
 
 function rmdsstore() {
   find "${@:-.}" -type f -name .DS_Store -delete
 }
 
-function quick-look() {
+function ql() {
   (( $# > 0 )) && qlmanage -p $* &>/dev/null &
 }
 fi

@@ -85,6 +85,13 @@ hs.hotkey.bind(mash, 'S', launch_slack)
 function code_layout()
   launch_slack()
   launch_terminal()
+
+  -- -- resize iterm (size bug)
+  -- local win = hs.window.focusedWindow()
+  -- local size = win:size()
+  -- size.h = size.h / 2
+  -- win:setSize(size)
+
   hs.mjomatic.go({
     "EEEEEEEEEEEEEESSSSSSSSSS",
     "EEEEEEEEEEEEEESSSSSSSSSS",
