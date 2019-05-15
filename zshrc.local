@@ -1,11 +1,19 @@
 function tl() {
-  echo *$1*(.om[1])
-  tail -f *$1*(.om[1])
+  FILE=$(echo *$1*(.om[1]))
+  echo "Tailing $FILE"
+  tail -f "$FILE"
 }
 
 function vl() {
-  echo *$1*(.om[1])
-  vim *$1*(.om[1])
+  FILE=$(echo *$1*(.om[1]))
+  echo "Opening $FILE"
+  vim "$FILE"
+}
+
+function gvl() {
+  FILE=$(echo *$1*(.om[1]))
+  echo "Opening $FILE"
+  gvim "$FILE"
 }
 
 eval $(thefuck --alias f)
