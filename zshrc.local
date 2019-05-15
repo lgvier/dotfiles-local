@@ -8,6 +8,8 @@ function vl() {
   vim *$1*(.om[1])
 }
 
+eval $(thefuck --alias f)
+
 if [ "$(uname 2> /dev/null)" != "Linux" ]; then
 # Mac-specific stuff
 function pfd() {
