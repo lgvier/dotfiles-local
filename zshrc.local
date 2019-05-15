@@ -38,4 +38,8 @@ function cdf() {
 function rmdsstore() {
   find "${@:-.}" -type f -name .DS_Store -delete
 }
+
+function quick-look() {
+  (( $# > 0 )) && qlmanage -p $* &>/dev/null &
+}
 fi
