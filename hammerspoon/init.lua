@@ -83,7 +83,7 @@ hs.hotkey.bind(mash, 'S', launch_slack)
 
 
 function code_layout()
-  launch_slack()
+  launch_chrome()
   launch_terminal()
 
   -- -- resize iterm (size bug)
@@ -93,14 +93,14 @@ function code_layout()
   -- win:setSize(size)
 
   hs.mjomatic.go({
-    "EEEEEEEEEEEEEESSSSSSSSSS",
-    "EEEEEEEEEEEEEESSSSSSSSSS",
-    "EEEEEEEEEEEEEESSSSSSSSSS",
+    "EEEEEEEEEEEEEECCCCCCCCCC",
+    "EEEEEEEEEEEEEECCCCCCCCCC",
+    "EEEEEEEEEEEEEECCCCCCCCCC",
     "EEEEEEEEEEEEEETTTTTTTTTT",
     "EEEEEEEEEEEEEETTTTTTTTTT",
     "",
     "E Eclipse",
-    "S Slack",
+    "C Google Chrome",
     "T iTerm2"}
     )
     --os.execute("sleep 1")
