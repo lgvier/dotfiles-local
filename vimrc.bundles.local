@@ -8,6 +8,7 @@ Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-function'
 Plug 'vim-scripts/argtextobj.vim'
+Plug 'terryma/vim-multiple-cursors'
 
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 " Plug 'flazz/vim-colorschemes'
