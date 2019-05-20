@@ -1,5 +1,10 @@
 export VISUAL=nvim
 export EDITOR=$VISUAL
+# edit commands in vim
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
 eval $(thefuck --alias f)
 
 function tl() {
