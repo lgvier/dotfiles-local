@@ -16,4 +16,6 @@ alias rcup='VISUAL=vim; rcup'
 
 if [ "$(uname 2> /dev/null)" != "Linux" ]; then
   alias gvim='vimr'
+  alias j8='export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)'
+  alias j11='export JAVA_HOME=$(/usr/libexec/java_home -v 11)'
 fi

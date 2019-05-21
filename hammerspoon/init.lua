@@ -40,6 +40,12 @@ function eclipse_debug()
 end
 hs.hotkey.bind(mash, 'D', eclipse_debug)
 
+function idea_focus()
+  local app = hs.appfinder.appFromName("IntelliJ IDEA")
+  app:activate()
+end
+hs.hotkey.bind(mash, 'I', idea_focus)
+
 function kill_java()
   local result = os.execute("killall -9 java")
   hs.alert.show(result and "Killed Java" or "Java process not found")
@@ -62,7 +68,7 @@ function launch_chrome()
   hs.application.launchOrFocus("Google Chrome")
   -- hs.alert.show("Google Chrome")
 end
-hs.hotkey.bind(mash, 'G', launch_chrome)
+hs.hotkey.bind(mash, 'C', launch_chrome)
 
 function launch_terminal()
   hs.application.launchOrFocus("iTerm")
@@ -107,5 +113,5 @@ function code_layout()
     eclipse_focus()
     -- hs.alert.show("Code")
   end
-hs.hotkey.bind(mash, 'C', code_layout)
+hs.hotkey.bind(mash, '1', code_layout)
 
