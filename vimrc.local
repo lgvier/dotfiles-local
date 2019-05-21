@@ -26,6 +26,14 @@ nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
+" move line/selection up or down
+inoremap <c-j> :move +1<cr>
+inoremap <c-k> :move -2<cr>
+nnoremap <c-j> :move +1<cr>
+nnoremap <c-k> :move -2<cr>
+vnoremap <c-j> :'<,'>move +1<cr>gv
+vnoremap <c-k> :'<,'>move -2<cr>gv
+
 " Color
 " Set the background theme to dark
 set background = "dark"
