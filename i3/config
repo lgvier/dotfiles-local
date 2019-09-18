@@ -29,6 +29,9 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec st -f 'Liberation Mono-9'
 
+# start firefox in incognito mode
+bindsym $mod+i workspace 3; layout tabbed; exec firefox -new-instance -P 'pvt' -private
+bindsym $mod+Shift+i workspace 8; layout tabbed; exec firefox -new-instance -P 'vpn' -private
 # kill focused window
 bindsym $mod+Shift+q kill
 
