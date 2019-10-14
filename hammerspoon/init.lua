@@ -87,6 +87,11 @@ function launch_slack()
 end
 hs.hotkey.bind(mash, 'S', launch_slack)
 
+function launch_evernote()
+  hs.application.launchOrFocus("Evernote")
+end
+hs.hotkey.bind(mash, 'P', launch_evernote)
+
 
 function code_layout()
   launch_chrome()

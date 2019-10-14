@@ -13,6 +13,8 @@ alias 6='cd -6'
 alias 7='cd -7'
 alias 8='cd -8'
 alias rcup='VISUAL=vim; rcup'
+alias scpj="scp -o 'ProxyJump jumpbox'"
+alias sshj='ssh -J jumpbox'
 
 if [ "$(uname 2> /dev/null)" != "Linux" ]; then
   alias gvim='vimr'
