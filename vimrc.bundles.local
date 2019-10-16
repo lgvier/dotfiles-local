@@ -10,6 +10,7 @@ Plug 'kana/vim-textobj-function'
 Plug 'vim-scripts/argtextobj.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'dense-analysis/ale'
 
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 " Plug 'flazz/vim-colorschemes'
