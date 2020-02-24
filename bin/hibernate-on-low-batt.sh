@@ -7,10 +7,11 @@ acpi -b | awk -F'[,:%]' '{print $2, $3}' | {
   if [ "$status" = Discharging ]; then
     if [ "$capacity" -lt "$batt_threshold" ]; then
       logger "$0: Critical battery threshold"
-      # echo "hib"
-      systemctl hibernate
+      # echo "hib" > /tmp/hib.txt
+      /usr/bin/systemctl hibernate
     elif [ "$capacity" -lt "$(($batt_threshold + 2))" ]; then
-      notify-send "Battery Low" "System will hibernate soon..." -u CRITICAL
+      # echo "hib-warn" > /tmp/hibwarn.txt
+      DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus /usr/bin/notify-send "Battery Low" "System will hibernate soon..." -u CRITICAL
     fi
   fi
 
