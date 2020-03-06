@@ -1,6 +1,8 @@
 set surround
 set multiple-cursors
 set commentary
+set argtextobj
+set textobj-entire
 
 set number
 set relativenumber
