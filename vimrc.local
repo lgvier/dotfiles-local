@@ -34,6 +34,10 @@ nnoremap <c-k> :move -2<cr>
 vnoremap <c-j> :'<,'>move +1<cr>gv
 vnoremap <c-k> :'<,'>move -2<cr>gv
 
+" cycle through buffers
+:nnoremap <Tab> :bnext<CR>
+:nnoremap <S-Tab> :bprevious<CR>
+
 " Color
 " Set the background theme to dark
 set background = "dark"
