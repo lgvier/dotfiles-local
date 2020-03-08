@@ -5,10 +5,13 @@ set nohlsearch
 set mouse=a
 
 inoremap <C-q> <esc>:qa<cr>
+vnoremap <C-q> <esc>:qa<cr>
 nnoremap <C-q> :qa<cr>
 
 " Change first word
-map ,w ^cw
+map <leader>w ^cw
+" Change inner line
+map <leader>l ^C
 
 " reselect visual block after indentation
 vnoremap < <gv
@@ -27,16 +30,16 @@ vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
 " move line/selection up or down
-inoremap <c-j> :move +1<cr>
-inoremap <c-k> :move -2<cr>
+inoremap <c-j> <esc>:move +1<cr>
+inoremap <c-k> <esc>:move -2<cr>
 nnoremap <c-j> :move +1<cr>
 nnoremap <c-k> :move -2<cr>
 vnoremap <c-j> :'<,'>move +1<cr>gv
 vnoremap <c-k> :'<,'>move -2<cr>gv
 
 " cycle through buffers
-:nnoremap <Tab> :bnext<CR>
-:nnoremap <S-Tab> :bprevious<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 
 " Color
 " Set the background theme to dark
@@ -46,6 +49,7 @@ set background = "dark"
 " colorscheme molokai
 colorscheme onehalfdark
 let g:airline_theme='onehalfdark'
+highlight Pmenu ctermbg=gray guibg=gray
 
 " This line enables the true color support.
 set termguicolors
@@ -61,13 +65,12 @@ let g:projectionist_heuristics = {
 " NERDTree
 map <leader>n :NERDTreeToggle<CR>
 map <leader>, :NERDTreeFind<CR>
-" map <C-n> :NERDTreeToggle<CR>
-" map <C-,> :NERDTreeFind<CR>
 
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" auto open NERDTree when no file specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" auto close tab when NERDTree is the last window
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " coc
 " if hidden is not set, TextEdit might fail.

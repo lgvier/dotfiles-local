@@ -7,11 +7,38 @@ set textobj-entire
 set number
 set relativenumber
 
+let mapleader=" "
+
 " Insert mode
-inoremap <C-k> <Up>
-inoremap <C-j> <Down>
-inoremap <C-l> <Right>
-inoremap <C-h> <Left>
+"inoremap <C-k> <Up>
+"inoremap <C-j> <Down>
+"inoremap <C-l> <Right>
+"inoremap <C-h> <Left>
 
 " Copy until the end of the line
 noremap Y y$
+
+inoremap <C-q> <esc>:q<cr>
+vnoremap <C-q> <esc>:q<cr>
+nnoremap <C-q> :q<cr>
+
+" Change first word
+map <leader>w ^cw
+" Change inner line
+map <leader>l ^C
+
+" reselect visual block after indentation
+vnoremap < <gv
+vnoremap > >gv
+
+" move line/selection up or down
+inoremap <c-j> <esc>:move +1<cr>
+inoremap <c-k> <esc>:move -2<cr>
+nnoremap <c-j> :move +1<cr>
+nnoremap <c-k> :move -2<cr>
+vnoremap <c-j> :'<,'>move +1<cr>gv
+vnoremap <c-k> :'<,'>move -2<cr>gv
+
+" cycle through tabs
+nnoremap <Tab> :tabnext<CR>
+nnoremap <S-Tab> :tabprevious<CR>
