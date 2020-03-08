@@ -63,14 +63,21 @@ let g:projectionist_heuristics = {
       \ }
 
 " NERDTree
-map <leader>n :NERDTreeToggle<CR>
-map <leader>, :NERDTreeFind<CR>
+map <leader>n :NERDTreeTabsToggle<CR>
+map <leader>, :NERDTreeTabsFind<CR>
 
 " auto open NERDTree when no file specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
 " auto close tab when NERDTree is the last window
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" NERDTreeTabs customizations
+let g:nerdtree_tabs_open_on_console_startup=1
+let g:nerdtree_tabs_open_on_console_startup=1
+"let g:nerdtree_tabs_focus_on_files=1
+let g:nerdtree_tabs_autofind=1
 
 " coc
 " if hidden is not set, TextEdit might fail.

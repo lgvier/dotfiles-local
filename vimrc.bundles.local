@@ -1,5 +1,6 @@
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-dispatch'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
