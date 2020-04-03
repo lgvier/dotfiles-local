@@ -1,6 +1,13 @@
 set relativenumber
 set nohlsearch
 
+" wrap without automatically inserting line breaks
+set wrap
+set linebreak
+set textwidth=0
+set wrapmargin=0
+
+
 " fix mouse integration in tmux
 set mouse=a
 
@@ -74,8 +81,7 @@ map <leader>, :NERDTreeTabsFind<CR>
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " NERDTreeTabs customizations
-let g:nerdtree_tabs_open_on_console_startup=1
-let g:nerdtree_tabs_open_on_console_startup=1
+let g:nerdtree_tabs_open_on_console_startup=0
 let g:nerdtree_tabs_focus_on_files=1
 let g:nerdtree_tabs_autofind=1
 
