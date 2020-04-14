@@ -54,8 +54,8 @@ set background = "dark"
 
 " Call the theme one
 " colorscheme molokai
-colorscheme onehalfdark
-let g:airline_theme='onehalfdark'
+colorscheme dracula
+let g:airline_theme='dracula'
 highlight Pmenu ctermbg=gray guibg=gray
 
 " This line enables the true color support.

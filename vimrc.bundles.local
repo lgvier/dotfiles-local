@@ -15,6 +15,7 @@ Plug 'dense-analysis/ale'
 
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 " Plug 'flazz/vim-colorschemes'
+Plug 'dracula/vim', {'as': 'dracula'}
 
 UnPlug 'vim-endwise'
 UnPlug 'vim-rails'
