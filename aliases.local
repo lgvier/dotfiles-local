@@ -3,6 +3,7 @@ alias https='http --default-scheme=https'
 alias vim="nvim"
 alias vi="nvim"
 alias groot='cd $(git rev-parse --show-toplevel 2> /dev/null || echo -n ".")'
+alias git-fix-fetch="git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'"
 alias d='dirs -v'
 alias 1='cd -1'
 alias 2='cd -2'
