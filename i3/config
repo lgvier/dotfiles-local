@@ -27,7 +27,7 @@ font xft:URWGothic-Book 11
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec st -f 'Liberation Mono-9'
+bindsym $mod+Return exec st -f 'mono:pixelsize=11:antialias=true:autohint:true'
 
 # start firefox in incognito mode
 bindsym $mod+i workspace 3; layout tabbed; exec firefox -new-instance -P 'pvt' -private
