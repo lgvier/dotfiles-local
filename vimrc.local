@@ -69,6 +69,9 @@ let g:projectionist_heuristics = {
       \   }
       \ }
 
+" Use github style markdown for previews
+let vim_markdown_preview_github=1
+
 " NERDTree
 map <leader>n :NERDTreeTabsToggle<CR>
 map <leader>, :NERDTreeTabsFind<CR>

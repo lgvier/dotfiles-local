@@ -47,8 +47,9 @@ end
 hs.hotkey.bind(mash, 'I', idea_focus)
 
 function kill_java()
-  local result = os.execute("killall -9 java")
-  hs.alert.show(result and "Killed Java" or "Java process not found")
+  -- ignore VSCode's background process
+  local result = os.execute("kill -9 $(ps aux | grep java | grep -v '.vscode/extensions' | grep -v grep | awk '{ print $2 }')")
+  hs.alert.show(result and "Killed java process" or "Java process not found")
 end
 hs.hotkey.bind(mash, '9', kill_java)
 
