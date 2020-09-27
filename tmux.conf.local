@@ -55,14 +55,6 @@ bind-key -n "M-S-Right" run-shell 'old=`tmux display -p "#{pane_index}"`; tmux s
 bind-key -n M-x confirm-before "kill-pane"
 bind-key -n M-/ copy-mode
 
-# Linux system clipboard
-#bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xclip -in -selection clipboard"
-#bind-key -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel "xclip -in -selection clipboard"
-
-# macOS system clipboard
-#bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "pbcopy"
-#bind-key -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel "pbcopy"
-
 set -g mouse on
 set-option -g status-keys vi
 set-option -g set-titles on
@@ -88,6 +80,10 @@ setw -g window-status-format ' #{?#{==:#W,#{b:SHELL}},#{b:pane_current_path},#W}
 #setw -g window-status-format ' #W '
 #setw -g window-status-current-format ' #W '
 
+# Load OS-specific stuff
+if-shell 'uname | grep -q Darwin' \
+    'source-file ~/.tmux.conf.mac.local' \
+    'if-shell "uname | grep -q CYGWIN" "source-file ~/.tmux.conf.cygwin.local" "source-file ~/.tmux.conf.linux.local"'
 
 ####################
 ## Plugins
