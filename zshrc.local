@@ -7,6 +7,7 @@ bindkey -M vicmd v edit-command-line
 
 eval $(thefuck --alias f)
 source <(kubectl completion zsh)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 function tl() {
   FILE=$(echo *$1*(.om[1]))
