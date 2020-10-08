@@ -32,6 +32,7 @@ bindsym $mod+Return exec st -f 'mono:pixelsize=11:antialias=true:autohint:true'
 # start firefox in incognito mode
 bindsym $mod+i workspace 4; layout tabbed; exec firefox -new-instance -private
 bindsym $mod+Shift+i workspace 5; layout tabbed; exec firefox -new-instance -P 'pvt' -private
+bindsym $mod+Shift+p workspace 6; layout tabbed; exec firefox -new-instance -P 'prn' -private
 bindsym $mod+Shift+o workspace 8; layout tabbed; exec firefox -new-instance -P 'vpn' -private
 # kill focused window
 bindsym $mod+Shift+q kill
