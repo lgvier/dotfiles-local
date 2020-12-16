@@ -7,7 +7,11 @@ Clone this repo
 ## Step 2:
 Install https://github.com/thoughtbot/dotfiles
 
-
+## Step 3:
+Install TPM:
+```
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
 
 All set!
 To update local configs: `rcup`
