@@ -29,6 +29,14 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec st -f 'mono:pixelsize=11:antialias=true:autohint:true'
 
+# task switcher - rofi
+bindsym Mod1+Tab \
+  exec rofi \
+  -show combi -modi combi -terminal st -hide-scrollbar true  \
+  -line-margin 0 -lines 20 -eh 1 -width 40 -bw 3 \
+  -theme glue_pro_blue \
+  -font      "Roboto Slab 12"
+
 # start firefox in incognito mode
 bindsym $mod+i workspace 4; layout tabbed; exec firefox -new-instance -private
 bindsym $mod+Shift+i workspace 5; layout tabbed; exec firefox -new-instance -P 'pvt' -private
