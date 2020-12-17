@@ -31,7 +31,7 @@ bindsym $mod+Return exec st -f 'mono:pixelsize=11:antialias=true:autohint:true'
 
 # task switcher - rofi
 bindsym Mod1+Tab \
-  exec rofi \
+  exec rofi --no-startup-id \
   -show combi -modi combi -terminal st -hide-scrollbar true  \
   -line-margin 0 -lines 20 -eh 1 -width 40 -bw 3 \
   -theme glue_pro_blue \
