@@ -20,4 +20,5 @@ alias sshj='ssh -J jumpbox'
 if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
   alias j8='export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)'
   alias j11='export JAVA_HOME=$(/usr/libexec/java_home -v 11)'
+  alias j15='export JAVA_HOME=$(/usr/libexec/java_home -v 15)'
 fi
