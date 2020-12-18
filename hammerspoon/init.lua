@@ -30,7 +30,7 @@ function eclipse_run()
   app:selectMenuItem("Run")
   hs.alert.show("Eclipse > Run")
 end
-hs.hotkey.bind(mash, 'R', eclipse_run)
+hs.hotkey.bind(mash, '/', eclipse_run)
 
 function eclipse_debug()
   local app = hs.appfinder.appFromName("Eclipse")
@@ -38,7 +38,7 @@ function eclipse_debug()
   app:selectMenuItem("Debug")
   hs.alert.show("Eclipse > Debug")
 end
-hs.hotkey.bind(mash, 'D', eclipse_debug)
+-- hs.hotkey.bind(mash, 'D', eclipse_debug)
 
 function idea_focus()
   local app = hs.appfinder.appFromName("IntelliJ IDEA")
@@ -46,9 +46,30 @@ function idea_focus()
 end
 hs.hotkey.bind(mash, 'I', idea_focus)
 
+function launch_vscode()
+  hs.application.launchOrFocus("Visual Studio Code")
+end
+hs.hotkey.bind(mash, 'C', launch_vscode)
+
+function vscode_run()
+  local app = hs.appfinder.appFromName("Visual Studio Code")
+  app:activate()
+  app:selectMenuItem("Run Without Debugging")
+  hs.alert.show("VSCode > Run")
+end
+hs.hotkey.bind(mash, 'R', vscode_run)
+
+function vscode_debug()
+  local app = hs.appfinder.appFromName("Visual Studio Code")
+  app:activate()
+  app:selectMenuItem("Start Debugging")
+  hs.alert.show("VSCode > Debug")
+end
+hs.hotkey.bind(mash, 'D', vscode_debug)
+
 function kill_java()
-  -- ignore VSCode's background process
-  local result = os.execute("kill -9 $(ps aux | grep java | grep -v '.vscode/extensions' | grep -v grep | awk '{ print $2 }')")
+  -- ignore VSCode's background process and SQLDeveloper
+  local result = os.execute("kill -9 $(ps aux | grep java | grep -v '.vscode/extensions' | grep -v 'oracle.ide.osgi.boot.OracleIdeLauncher' | grep -v grep | awk '{ print $2 }')")
   hs.alert.show(result and "Killed java process" or "Java process not found")
 end
 hs.hotkey.bind(mash, '9', kill_java)
@@ -69,7 +90,7 @@ function launch_chrome()
   hs.application.launchOrFocus("Google Chrome")
   -- hs.alert.show("Google Chrome")
 end
-hs.hotkey.bind(mash, 'C', launch_chrome)
+hs.hotkey.bind(mash, 'G', launch_chrome)
 
 function launch_terminal()
   hs.application.launchOrFocus("iTerm")
