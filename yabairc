@@ -27,7 +27,7 @@ yabai -m config top_padding                  2
 yabai -m config bottom_padding               2
 yabai -m config left_padding                 2
 yabai -m config right_padding                2
-yabai -m config window_gap                   0
+yabai -m config window_gap                   2
 
 # float system preferences. Most of these just diable Yabai form resizing them.
 yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
@@ -38,6 +38,10 @@ yabai -m rule --add app="^Activity Monitor$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Spotify$" manage=off
 yabai -m rule --add app="^Private Internet Access$" manage=off
 yabai -m rule --add app="^BIG-IP Edge Client$" manage=off
+yabai -m rule --add app="^Citrix Workspace$" manage=off
+# Eclipse modals
+yabai -m rule --add app="^Open Resource$" manage=off
+yabai -m rule --add app="^Find/Replace$" manage=off
 
 # bitbar integration
 yabai -m signal --add event=space_changed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
