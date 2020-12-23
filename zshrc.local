@@ -67,3 +67,5 @@ function ql() {
   (( $# > 0 )) && qlmanage -p $* &>/dev/null &
 }
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
