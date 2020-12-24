@@ -167,7 +167,6 @@ hs.hotkey.bind(mash, "`", reload_config)
 
 function findNextSpace(back)
   local currSpace = spaces.activeSpace()
-  local currScreen = spaces.spaceScreenUUID(currSpace)
   local screenSpaces = hs.window.focusedWindow():screen():spaces()
   local spaceCnt = 0
   local spaceIdx = 0
