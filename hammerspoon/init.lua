@@ -1,6 +1,9 @@
 local mash = {"ctrl","alt","cmd"}
 local ctcm = {"ctrl","cmd"}
 
+-- https://github.com/asmagill/hs._asm.undocumented.spaces
+spaces = require("hs._asm.undocumented.spaces")
+
 function reload_config(files)
    hs.reload()
 end
@@ -142,14 +145,14 @@ hs.hotkey.bind(mash, "`", reload_config)
 -- hs.hotkey.bind(mash, '1', code_layout)
 --
 --
-function yabai_cmd(cmd)
-  hs.alert.show(cmd)
-  status = hs.execute(cmd)
-  if not status then
-    hs.alert.show("didn't work: [" .. cmd .. "]")
-  end
-end
-
+-- function yabai_cmd(cmd)
+--   hs.alert.show(cmd)
+--   status = hs.execute(cmd)
+--   if not status then
+--     hs.alert.show("didn't work: [" .. cmd .. "]")
+--   end
+-- end
+-- 
 -- hs.hotkey.bind(mash, 'h', function() yabai_cmd("/usr/local/bin/yabai -m window --swap west") end)
 -- hs.hotkey.bind(ctcm, 'j', function() yabai_cmd("/usr/local/bin/yabai -m window --focus south") end)
 -- hs.hotkey.bind(mash, 'j', function() yabai_cmd("/usr/local/bin/yabai -m window --swap south") end)
@@ -161,5 +164,51 @@ end
 -- hs.hotkey.bind(mash, ']', function() yabai_cmd(os.getenv("HOME") .. "/.bin/yabai/nextSpace.sh") end)
 -- hs.hotkey.bind(mash, ',', function() yabai_cmd(os.getenv("HOME") .. "/.bin/yabai/moveWindowLeftAndFollowFocus.sh") end)
 -- hs.hotkey.bind(mash, '.', function() yabai_cmd(os.getenv("HOME") .. "/.bin/yabai/moveWindowRightAndFollowFocus.sh") end)
+
+function findNextSpace(back)
+  local currSpace = spaces.activeSpace()
+  local currScreen = spaces.spaceScreenUUID(currSpace)
+  local screenSpaces = hs.window.focusedWindow():screen():spaces()
+  local spaceCnt = 0
+  local spaceIdx = 0
+  for k, v in pairs(screenSpaces) do
+    spaceCnt = spaceCnt + 1
+    if v == currSpace then
+      spaceIdx = k
+    end
+  end
+  if back then 
+    if spaceIdx == 1 then 
+      return screenSpaces[spaceCnt]
+    else
+      return screenSpaces[spaceIdx - 1]
+    end
+  else
+    if spaceIdx == spaceCnt then 
+      return screenSpaces[1]
+    else
+      return screenSpaces[spaceIdx + 1]
+    end
+  end
+end
+
+function goToSpace(back)
+  local nextSpace = findNextSpace(back)
+  -- hs.alert.show("space [" .. nextSpace .. "] ")
+  spaces.changeToSpace(nextSpace)
+end
+hs.hotkey.bind(ctcm, '-', function() goToSpace(true) end)
+hs.hotkey.bind(mash, '-', function() goToSpace(false) end)
+
+function moveToSpace(back)
+  local win = hs.window.focusedWindow()
+  local nextSpace = findNextSpace(false)
+  -- hs.alert.show("space [" .. nextSpace .. "] ")
+  win:spacesMoveTo(nextSpace)
+  spaces.changeToSpace(nextSpace)
+  win:focus()
+end
+hs.hotkey.bind(ctcm, '=', function() moveToSpace(true) end)
+hs.hotkey.bind(mash, '=', function() moveToSpace(false) end)
 
 hs.alert.show("Hammerspoon config loaded")
