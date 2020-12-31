@@ -1,5 +1,6 @@
 -- https://raw.githubusercontent.com/szymonkaliski/dotfiles/master/Dotfiles/hammerspoon/ext/screen.lua
 local module = {}
+local log = hs.logger.new('ext_screen','debug')
 
 -- grabs screen with active window, unless it's Finder's desktop
 -- then we use mouse position
@@ -15,6 +16,7 @@ end
 
 -- focus screen quitely - with mouse in corner
 module.quietFocusScreen = function(screen)
+  log.i("quietFocusScreen", screen)
   screen = screen or hs.mouse.getCurrentScreen()
 
   local frame         = screen:frame()
@@ -36,6 +38,7 @@ end
 
 -- focus screen centering mouse
 module.focusScreen = function(screen)
+  log.i("focusScreen", screen)
   screen = screen or hs.mouse.getCurrentScreen()
 
   local frame = screen:fullFrame()

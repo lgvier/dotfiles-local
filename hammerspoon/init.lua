@@ -1,8 +1,17 @@
+local log = hs.logger.new('init.lua','debug')
 
 mash = {"ctrl","alt","cmd"}
 ctcm = {"ctrl","cmd"}
+atcm = {"alt","cmd"}
+atsh = {"alt","shift"}
 
 config = {} 
+
+function reload_config(files)
+  hs.reload()
+end
+hs.hotkey.bind(mash, "`", reload_config)
+hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/hammerspoon/", reload_config):start()
 
 -- hhtwm_config = require('modules.hhtwm_config');
 -- hhtwm_shortcuts = require('modules.hhtwm_shortcuts');
@@ -22,10 +31,5 @@ hs.shutdownCallback = function()
   end)
 end
 
-function reload_config(files)
-   hs.reload()
-end
-hs.hotkey.bind(mash, "`", reload_config)
--- hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/hammerspoon/", reload_config):start()
-
+log.i("Hammerspoon config loaded")
 hs.alert.show("Hammerspoon config loaded")

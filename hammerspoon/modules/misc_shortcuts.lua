@@ -3,11 +3,11 @@ local log = hs.logger.new('misc_shortcuts','debug')
 
 module.start = function()
 
-  hs.hotkey.bind(mash, "-", function()
-    -- hs.alert.show("Minimize")
-    local app = hs.window.focusedWindow()
-    app:minimize()
-  end)
+  -- hs.hotkey.bind(mash, "-", function()
+  --   -- hs.alert.show("Minimize")
+  --   local app = hs.window.focusedWindow()
+  --   app:minimize()
+  -- end)
 
   local function eclipse_focus()
     local app = hs.appfinder.appFromName("Eclipse")
