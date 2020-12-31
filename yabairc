@@ -27,7 +27,7 @@ yabai -m config top_padding                  1
 yabai -m config bottom_padding               1
 yabai -m config left_padding                 1
 yabai -m config right_padding                1
-yabai -m config window_gap                   1
+yabai -m config window_gap                   2
 
 # float system preferences. Most of these just diable Yabai form resizing them.
 yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
