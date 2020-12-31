@@ -1,6 +1,7 @@
 # type skhd -o in a terminal and type a key; key code hex must be in upper case
 
 # Close active application
+alt - q : skhd --key "cmd - q"
 alt - backspace : $(yabai -m window $(yabai -m query --windows --window | jq -re ".id") --close)
 
 # open terminal
