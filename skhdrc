@@ -3,7 +3,10 @@
 # Close active application
 alt - q : skhd --key "cmd - q"
 alt + shift - q : skhd --key "cmd - q"
+# Close active window
 alt - backspace : $(yabai -m window $(yabai -m query --windows --window | jq -re ".id") --close)
+# Launchpad (mimic i3 shortcut)
+alt - d : skhd --key "cmd - space"
 
 # open terminal
 alt - return : /Applications/iTerm.app/Contents/MacOS/iTerm2
