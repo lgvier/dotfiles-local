@@ -1,5 +1,5 @@
 {
-    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim",
     "editor.lineNumbers": "relative",
     "keyboard.dispatch": "keyCode",
     "editor.fontSize": 12,
@@ -13,13 +13,12 @@
         "path": null
     },
     "[rust]": {
-        "editor.defaultFormatter": "rust-lang.rust"
     },
     "editor.formatOnPaste": true,
     "editor.autoClosingBrackets": "never",
     "editor.autoClosingQuotes": "never",
     "vim.easymotion": true,
     "vim.enableNeovim": true,
-    "vim.neovimPath": "/usr/bin/nvim",
+    "vim.neovimPath": "/usr/local/bin/nvim",
     "vim.sneak": true
 }

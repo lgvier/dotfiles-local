@@ -93,7 +93,7 @@ STYLE="NUMBER"
 # Choose weather or not you want to see the type of the current space. i.e. BSP, STACK, or FLOAT
 # Options, `true` or `false`
 
-SPACETYPE=false
+SPACETYPE=true
 BSP="◇"
 STACK="◆"
 FLOAT="◈"

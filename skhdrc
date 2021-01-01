@@ -2,6 +2,7 @@
 
 # Close active application
 alt - q : skhd --key "cmd - q"
+alt + shift - q : skhd --key "cmd - q"
 alt - backspace : $(yabai -m window $(yabai -m query --windows --window | jq -re ".id") --close)
 
 # open terminal
@@ -34,17 +35,17 @@ ctrl + alt + cmd - j : yabai -m window north --resize bottom:0:20 2> /dev/null |
 ctrl + alt + cmd - k : yabai -m window south --resize top:0:-20 2> /dev/null || yabai -m window --resize top:0:-20
 ctrl + alt + cmd - l : yabai -m window east --resize left:20:0 2> /dev/null || yabai -m window --resize left:20:0
 
-## increase window size
-#alt - a : yabai -m window --resize left:-20:0
-#alt - s : yabai -m window --resize bottom:0:20
-#alt - w : yabai -m window --resize top:0:-20
-#alt - d : yabai -m window --resize right:20:0
-# 
-## decrease window size
-#alt + shift - a : yabai -m window --resize left:20:0
-#alt + shift - s : yabai -m window --resize bottom:0:-20
-#alt + shift - w : yabai -m window --resize top:0:20
-#alt + shift - d : yabai -m window --resize right:-20:0
+## increase window size (useful for floating windows)
+alt - a : yabai -m window --resize left:-20:0
+alt - s : yabai -m window --resize bottom:0:20
+alt - w : yabai -m window --resize top:0:-20
+alt - d : yabai -m window --resize right:20:0
+ 
+## decrease window size (useful for floating windows)
+alt + shift - a : yabai -m window --resize left:20:0
+alt + shift - s : yabai -m window --resize bottom:0:-20
+alt + shift - w : yabai -m window --resize top:0:20
+alt + shift - d : yabai -m window --resize right:-20:0
  
 # rotate tree
 alt - r : yabai -m space --rotate 90
@@ -59,3 +60,9 @@ alt - p : yabai -m window --focus stack.prev || yabai -m window --focus prev || 
 alt - i : yabai -m query --spaces | jq -re ".[] | select(.visible == 1).index" | xargs -I{} yabai -m query --windows --space {} | jq -sre "add | sort_by(.display, .frame.x, .frame.y, .id) | nth(index(map(select(.focused == 1))) - 1).id" | xargs -I{} yabai -m window --focus {}
 # forward across screens
 alt - o : yabai -m query --spaces | jq -re ".[] | select(.visible == 1).index" | xargs -I{} yabai -m query --windows --space {} | jq -sre "add | sort_by(.display, .frame.x, .frame.y, .id) | nth(index(map(select(.focused == 1))) + 1).id" | xargs -I{} yabai -m window --focus {}
+
+# go to previous space
+alt - b : yabai -m space --focus recent
+# toggle float
+alt - t : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2
+

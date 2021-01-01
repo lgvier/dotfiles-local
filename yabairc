@@ -30,11 +30,11 @@ yabai -m config right_padding                1
 yabai -m config window_gap                   2
 
 # float system preferences. Most of these just diable Yabai form resizing them.
-yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
-yabai -m rule --add app="^Finder$" sticky=on layer=above manage=off
-yabai -m rule --add app="^Disk Utility$" sticky=on layer=above manage=off
-yabai -m rule --add app="^System Information$" sticky=on layer=above manage=off
-yabai -m rule --add app="^Activity Monitor$" sticky=on layer=above manage=off
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^Disk Utility$" manage=off
+yabai -m rule --add app="^System Information$" manage=off
+yabai -m rule --add app="^Activity Monitor$" manage=off
 yabai -m rule --add app="^Spotify$" manage=off
 yabai -m rule --add app="^Private Internet Access$" manage=off
 yabai -m rule --add app="^BIG-IP Edge Client$" manage=off
@@ -56,7 +56,7 @@ yabai -m signal --add event=system_woke action="open -gj 'bitbar://refreshPlugin
 
 #Limelight addon (Kill it and start it each time Yabai starts)
 killall limelight &>/dev/null
-limelight &>/dev/null &
+/usr/local/bin/limelight &>/dev/null &
 
 echo "yabai configuration loaded.."
 
