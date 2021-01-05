@@ -39,9 +39,12 @@ yabai -m rule --add app="^Spotify$" manage=off
 yabai -m rule --add app="^Private Internet Access$" manage=off
 yabai -m rule --add app="^BIG-IP Edge Client$" manage=off
 yabai -m rule --add app="^Citrix Workspace$" manage=off
-# Eclipse modals
-yabai -m rule --add app="^Open Resource$" manage=off
-yabai -m rule --add app="^Find/Replace$" manage=off
+# Zoom - main window floating, meetings managed
+yabai -m rule --add app="^zoom\.us$" title!="^Zoom Meeting$" manage=off
+# Eclipse - float all modals
+yabai -m rule --add app="^Eclipse$" title!="^.*Eclipse IDE$" manage=off
+# SQL developer - float all modals
+yabai -m rule --add app="^Oracle SQL Developer$" title!="^Oracle SQL Developer.*$" manage=off
 
 # bitbar integration
 yabai -m signal --add event=space_changed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"

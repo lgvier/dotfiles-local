@@ -53,11 +53,11 @@ end
 local findSpaceN = function(n)
   local screens = hs.screen.allScreens()
   local spaceCnt = 0
-  for _, screen in pairs(screens) do
+  for sk, screen in pairs(screens) do
     local screenSpaces = screen:spaces()
     for k, v in pairs(screenSpaces) do
-      -- log.i('space [', k, ']', v)
       spaceCnt = spaceCnt + 1
+      log.i(spaceCnt, 'screen', sk, ' - ', screen, ', space [', k, ']', v)
       if spaceCnt == n then
         return screen, v
       end
@@ -106,17 +106,22 @@ end
 module.start = function()
   hs.hotkey.bind('alt', '[', function() goToSpace(false) end)
   hs.hotkey.bind('alt', ']', function() goToSpace(true) end)
+  hs.hotkey.bind(atsh, '[', function() moveToSpace(false) end)
+  hs.hotkey.bind(atsh, ']', function() moveToSpace(true) end)
+
   hs.hotkey.bind('alt', '1', function() goToSpaceN(1) end)
   hs.hotkey.bind('alt', '2', function() goToSpaceN(2) end)
   hs.hotkey.bind('alt', '3', function() goToSpaceN(3) end)
   hs.hotkey.bind('alt', '4', function() goToSpaceN(4) end)
-  hs.hotkey.bind(atsh, '[', function() moveToSpace(false) end)
-  hs.hotkey.bind(atsh, ']', function() moveToSpace(true) end)
+  hs.hotkey.bind('alt', '5', function() goToSpaceN(5) end)
+  hs.hotkey.bind('alt', '6', function() goToSpaceN(6) end)
   hs.hotkey.bind(atsh, '1', function() moveToSpaceN(1) end)
   hs.hotkey.bind(atsh, '2', function() moveToSpaceN(2) end)
   hs.hotkey.bind(atsh, '3', function() moveToSpaceN(3) end)
   hs.hotkey.bind(atsh, '4', function() moveToSpaceN(4) end)
-  
+  hs.hotkey.bind(atsh, '5', function() moveToSpaceN(5) end)
+  hs.hotkey.bind(atsh, '6', function() moveToSpaceN(6) end)
+
   -- hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/yabairc", reload_yabai):start()
   hs.hotkey.bind(mash, 'y', reload_yabai)
   hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/skhdrc", reload_skhdrc):start()
