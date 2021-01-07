@@ -18,7 +18,8 @@ hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/hammerspoon/", reload_c
 -- local modules = { hhtwm_shortcuts, hhtwm_config }
 yabai_extras = require('modules.yabai_extras');
 misc_shortcuts = require('modules.misc_shortcuts');
-local modules = { yabai_extras, misc_shortcuts }
+sizeup = require('modules.sizeup');
+local modules = { yabai_extras, misc_shortcuts, sizeup }
 
 hs.fnutils.each(modules, function(module)
   if module then module.start() end

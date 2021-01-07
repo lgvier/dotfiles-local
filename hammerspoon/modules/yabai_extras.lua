@@ -9,12 +9,39 @@ local spaces = require("hs._asm.undocumented.spaces")
 
 local screen_ext = require("ext.screen")
 
+local getAllSpaceIds = function()
+  -- invoke yabai to get the spaces in the correct order
+  local handle = io.popen("/usr/local/bin/yabai -m query --spaces | /usr/local/bin/jq '.[] | .id'")
+  local cmdResult = handle:read("*a")
+  handle:close()
+  local result = {}
+  local spaceCnt = 0
+  for line in string.gmatch(cmdResult,'[^\r\n]+') do
+    spaceCnt = spaceCnt + 1
+    log.d('getAllSpaceIds result[', spaceCnt, ']=', line)
+    result[spaceCnt] = tonumber(line)
+  end
+  return result
+end
+
+local findSpaceScreen = function(space)
+  local screenId = spaces.spaceScreenUUID(space)
+  local screens = hs.screen.allScreens()
+  for sk, screen in pairs(screens) do
+    if screen:spacesUUID() == screenId then
+      log.d('findSpaceScreen space:', space, 'screen', screen)
+      return screen, space
+    end
+  end
+end
+
 local findNextSpace = function(fwd)
   local currSpace = spaces.activeSpace()
-  local screenSpaces = hs.window.focusedWindow():screen():spaces()
+  log.d('findNextSpace fwd?', fwd, 'currSpace:', currSpace)
+  local spaceIds = getAllSpaceIds()
   local spaceCnt = 0
   local spaceIdx = 0
-  for k, v in pairs(screenSpaces) do
+  for k, v in pairs(spaceIds) do
     spaceCnt = spaceCnt + 1
     if v == currSpace then
       spaceIdx = k
@@ -22,53 +49,23 @@ local findNextSpace = function(fwd)
   end
   if fwd then 
     if spaceIdx == spaceCnt then 
-      return screenSpaces[1]
+      return spaceIds[1]
     else
-      return screenSpaces[spaceIdx + 1]
+      return spaceIds[spaceIdx + 1]
     end
   else
     if spaceIdx == 1 then 
-      return screenSpaces[spaceCnt]
+      return spaceIds[spaceCnt]
     else
-      return screenSpaces[spaceIdx - 1]
+      return spaceIds[spaceIdx - 1]
     end
   end
 end
 
-local goToSpace = function(fwd)
-  local nextSpace = findNextSpace(fwd)
-  log.i("goToSpace: ", nextSpace)
-  spaces.changeToSpace(nextSpace)
-end
-
-local moveToSpace = function(fwd)
-  local win = hs.window.focusedWindow()
-  local nextSpace = findNextSpace(false)
-  log.i("moveToSpace: ", nextSpace)
-  win:spacesMoveTo(nextSpace)
-  spaces.changeToSpace(nextSpace)
-  win:focus()
-end
-
-local findSpaceN = function(n)
-  local screens = hs.screen.allScreens()
-  local spaceCnt = 0
-  for sk, screen in pairs(screens) do
-    local screenSpaces = screen:spaces()
-    for k, v in pairs(screenSpaces) do
-      spaceCnt = spaceCnt + 1
-      log.i(spaceCnt, 'screen', sk, ' - ', screen, ', space [', k, ']', v)
-      if spaceCnt == n then
-        return screen, v
-      end
-    end
-  end
-end
-
-local goToSpaceN = function(n)
-  local screen, space = findSpaceN(n)
-  log.i("goToSpaceN(", n, ") space#: ", space)
+local goToSpace = function(space)
   if space then
+    local screen = findSpaceScreen(space)
+    log.i("goToSpace(", space, ") screen#: ", screen)
     if screen ~= hs.screen.mainScreen() then
       log.i('changing focus to screen', screen)
       screen_ext.focusScreen(screen)
@@ -83,15 +80,41 @@ local goToSpaceN = function(n)
   end
 end
 
-local moveToSpaceN = function(n)
-  local win = hs.window.focusedWindow()
-  local screen, space = findSpaceN(n)
-  log.i("moveToSpaceN(", n, ") space#: ", space)
+local moveToSpace = function(space)
   if space then
+    local win = hs.window.focusedWindow()
+    local screen = findSpaceScreen(space)
+    log.i("moveToSpace(", space, ") screen#: ", screen)
     win:spacesMoveTo(space)
     spaces.changeToSpace(space)
     win:focus()
   end
+end
+
+local goToNextSpace = function(fwd)
+  local space = findNextSpace(fwd)
+  log.i('goToNextSpace - next space fwd?', fwd, ':', space)
+  goToSpace(space)
+end
+
+local moveToNextSpace = function(fwd)
+  local space = findNextSpace(fwd)
+  log.i('moveToNextSpace - next space fwd?', fwd, ':', space)
+  moveToSpace(space)
+end
+
+local goToSpaceN = function(n)
+  local spaceIds = getAllSpaceIds()
+  local space = spaceIds[n]
+  log.i("goToSpaceN(", n, ") space#: ", space)
+  goToSpace(space)
+end
+
+local moveToSpaceN = function(n)
+  local spaceIds = getAllSpaceIds()
+  local space = spaceIds[n]
+  log.i("moveToSpaceN(", n, ") space#: ", space)
+  moveToSpace(space)
 end
 
 local function reload_yabai()
@@ -104,10 +127,10 @@ local function reload_skhdrc()
 end
 
 module.start = function()
-  hs.hotkey.bind('alt', '[', function() goToSpace(false) end)
-  hs.hotkey.bind('alt', ']', function() goToSpace(true) end)
-  hs.hotkey.bind(atsh, '[', function() moveToSpace(false) end)
-  hs.hotkey.bind(atsh, ']', function() moveToSpace(true) end)
+  hs.hotkey.bind('alt', '[', function() goToNextSpace(false) end)
+  hs.hotkey.bind('alt', ']', function() goToNextSpace(true) end)
+  hs.hotkey.bind(atsh, '[', function() moveToNextSpace(false) end)
+  hs.hotkey.bind(atsh, ']', function() moveToNextSpace(true) end)
 
   hs.hotkey.bind('alt', '1', function() goToSpaceN(1) end)
   hs.hotkey.bind('alt', '2', function() goToSpaceN(2) end)
@@ -123,7 +146,7 @@ module.start = function()
   hs.hotkey.bind(atsh, '6', function() moveToSpaceN(6) end)
 
   -- hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/yabairc", reload_yabai):start()
-  hs.hotkey.bind(mash, 'y', reload_yabai)
+  hs.hotkey.bind('alt', 'y', reload_yabai)
   hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/skhdrc", reload_skhdrc):start()
   log.i("yabai_extras module started")
 end

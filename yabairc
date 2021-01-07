@@ -23,6 +23,8 @@ yabai -m config mouse_action2                resize
 
 # general space settings
 yabai -m config layout                       bsp
+# first space floating
+yabai -m space 1 --layout float
 yabai -m config top_padding                  1
 yabai -m config bottom_padding               1
 yabai -m config left_padding                 1
