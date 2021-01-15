@@ -25,6 +25,8 @@ tar -xzf ~/Downloads/spaces-v<Tab>
 ## Step 4:
 Random apps
 ```
+brew install iterm2
+brew install tmux
 brew install thefuck
 brew install kubectl
 brew install tree
@@ -35,6 +37,7 @@ cd ~/git/limelight
 make
 ln -s $HOME/git/limelight/bin/limelight /usr/local/bin/limelight
 
+brew install jq
 brew install koekeishiya/formulae/yabai
 brew install koekeishiya/formulae/skhd
 brew services start yabai
@@ -42,6 +45,14 @@ brew services start skhd
 brew install bitbar
 # set bitbar plugins location to ~/dotfiles-local/bitbar
 ```
+
+## Sane mac os defaults (optional)
+```
+git clone https://github.com/kevinSuttle/macOS-Defaults.git ~/git/macOS-Defaults
+cd ~/git/macOS-Defaults
+./.macos
+```
+
 
 All set!
 To update local configs: `rcup`
