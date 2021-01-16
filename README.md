@@ -30,6 +30,7 @@ brew install nvim
 brew install eclipse-java
 # rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+cargo install cargo-watch`
 ```
 
 ## Step 5 (optional):
@@ -56,7 +57,9 @@ brew install koekeishiya/formulae/skhd
 brew services start yabai
 brew services start skhd
 brew install bitbar
-# set bitbar plugins location to ~/dotfiles-local/bitbar
+# Manual steps:
+# 1. set bitbar plugins location to ~/dotfiles-local/bitbar
+# 2. in Preferences > Acessibility > Display, check Reduce motion
 ```
 
 ## Step 7 (optional):
@@ -67,7 +70,7 @@ cd ~/git/macOS-Defaults
 ./.macos
 # Customize some of the settings
 defaults write NSGlobalDomain KeyRepeat -int 5
-defaults write NSGlobalDomain InitialKeyRepeat -int 10
+defaults write NSGlobalDomain InitialKeyRepeat -int 20
 defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
 defaults write NSGlobalDomain AppleLanguages -array "en" "us"
 defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
