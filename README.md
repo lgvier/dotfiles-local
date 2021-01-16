@@ -13,7 +13,21 @@ Install TPM:
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-## Step 4:
+## Step 4 (optional):
+Random apps
+```
+brew install iterm2
+brew install tmux
+brew install thefuck
+brew install kubectl
+brew install tree
+brew install --cask spotify
+brew install visual-studio-code
+brew install nvim
+brew install eclipse-java
+```
+
+## Step 5 (optional):
 Install hammerspoon:
 ```
 brew install hammerspoon
@@ -22,15 +36,9 @@ cd ~/.hammerspoon
 tar -xzf ~/Downloads/spaces-v<Tab>
 ```
 
-## Step 4:
-Random apps
+## Step 6 (optional):
+Install yabai
 ```
-brew install iterm2
-brew install tmux
-brew install thefuck
-brew install kubectl
-brew install tree
-
 mkdir ~git
 git clone https://github.com/koekeishiya/limelight.git ~/git/limelight
 cd ~/git/limelight
@@ -46,12 +54,23 @@ brew install bitbar
 # set bitbar plugins location to ~/dotfiles-local/bitbar
 ```
 
-## Sane mac os defaults (optional)
+## Step 7 (optional):
+Sane mac os defaults
 ```
 git clone https://github.com/kevinSuttle/macOS-Defaults.git ~/git/macOS-Defaults
 cd ~/git/macOS-Defaults
 ./.macos
+# Customize some of the settings
+defaults write NSGlobalDomain KeyRepeat -int 1000
+defaults write NSGlobalDomain InitialKeyRepeat -int 1000
+defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
+defaults write NSGlobalDomain AppleLanguages -array "en" "us"
+defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
+sudo systemsetup -settimezone "America/New_York" > /dev/null
+# reboot
 ```
+Dont connect bluetooth audio devices automatically:
+https://apple.stackexchange.com/a/380909
 
 
 All set!
