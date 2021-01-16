@@ -69,8 +69,8 @@ git clone https://github.com/kevinSuttle/macOS-Defaults.git ~/git/macOS-Defaults
 cd ~/git/macOS-Defaults
 ./.macos
 # Customize some of the settings
-defaults write NSGlobalDomain KeyRepeat -int 5
-defaults write NSGlobalDomain InitialKeyRepeat -int 20
+defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 35
 defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
 defaults write NSGlobalDomain AppleLanguages -array "en" "us"
 defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
