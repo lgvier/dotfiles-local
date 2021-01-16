@@ -17,6 +17,9 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 Random apps
 ```
 brew install iterm2
+mkdir ~/git
+git clone https://github.com/dracula/iterm.git ~/git/dracula-iterm
+# activate the theme in the iterm presets
 brew install tmux
 brew install thefuck
 brew install kubectl
@@ -25,6 +28,8 @@ brew install --cask spotify
 brew install visual-studio-code
 brew install nvim
 brew install eclipse-java
+# rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 ## Step 5 (optional):
@@ -61,8 +66,8 @@ git clone https://github.com/kevinSuttle/macOS-Defaults.git ~/git/macOS-Defaults
 cd ~/git/macOS-Defaults
 ./.macos
 # Customize some of the settings
-defaults write NSGlobalDomain KeyRepeat -int 1000
-defaults write NSGlobalDomain InitialKeyRepeat -int 1000
+defaults write NSGlobalDomain KeyRepeat -int 5
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
 defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
 defaults write NSGlobalDomain AppleLanguages -array "en" "us"
 defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
