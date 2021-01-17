@@ -64,8 +64,6 @@ alt - i : yabai -m query --spaces | jq -re ".[] | select(.visible == 1).index" |
 # forward across screens
 alt - o : yabai -m query --spaces | jq -re ".[] | select(.visible == 1).index" | xargs -I{} yabai -m query --windows --space {} | jq -sre "add | sort_by(.display, .frame.x, .frame.y, .id) | nth(index(map(select(.focused == 1))) + 1).id" | xargs -I{} yabai -m window --focus {}
 
-# go to previous space
-alt - b : yabai -m space --focus recent
 # toggle float
 alt - t : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2
 

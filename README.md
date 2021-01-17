@@ -25,6 +25,8 @@ brew install thefuck
 brew install kubectl
 brew install tree
 brew install --cask spotify
+brew install --cask deluge
+brew install --cask beardedspice
 brew install visual-studio-code
 brew install nvim
 brew install eclipse-java

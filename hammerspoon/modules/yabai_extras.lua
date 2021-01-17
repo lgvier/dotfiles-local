@@ -9,6 +9,9 @@ local spaces = require("hs._asm.undocumented.spaces")
 
 local screen_ext = require("ext.screen")
 
+local spaceHistCurr = nil
+local spaceHistPrev = nil
+
 local getAllSpaceIds = function()
   -- invoke yabai to get the spaces in the correct order
   local handle = io.popen("/usr/local/bin/yabai -m query --spaces | /usr/local/bin/jq '.[] | .id'")
@@ -86,6 +89,11 @@ local moveToSpace = function(space)
     local screen = findSpaceScreen(space)
     log.i("moveToSpace(", space, ") screen#: ", screen)
     win:spacesMoveTo(space)
+    local f = win:frame()
+    log.i("frame after moving window: ", f)
+    -- f.x = 0
+    -- f.y = 0
+    -- win:setFrame(f)
     spaces.changeToSpace(space)
     win:focus()
   end
@@ -106,15 +114,39 @@ end
 local goToSpaceN = function(n)
   local spaceIds = getAllSpaceIds()
   local space = spaceIds[n]
-  log.i("goToSpaceN(", n, ") space#: ", space)
-  goToSpace(space)
+  local currSpace = spaces.activeSpace()
+  log.i("goToSpaceN(", n, ") space id: ", space, ", currSpace", currSpace)
+  if space ~= currSpace then
+    goToSpace(space)
+  else
+    goBackToPreviousSpace()
+  end
 end
 
 local moveToSpaceN = function(n)
   local spaceIds = getAllSpaceIds()
   local space = spaceIds[n]
-  log.i("moveToSpaceN(", n, ") space#: ", space)
-  moveToSpace(space)
+  local currSpace = spaces.activeSpace()
+  log.i("moveToSpaceN(", n, ") space id: ", space, ", currSpace", currSpace)
+  if space ~= currSpace then
+    moveToSpace(space)
+  else
+    moveBackToPreviousSpace()
+  end
+end
+
+local goBackToPreviousSpace = function()
+  log.i("goBackToPreviousSpace spaceHistPrev", spaceHistPrev)
+  if spaceHistPrev then
+    goToSpace(spaceHistPrev)
+  end
+end
+
+local moveBackToPreviousSpace = function()
+  log.i("moveBackToPreviousSpace spaceHistPrev", spaceHistPrev)
+  if spaceHistPrev then
+    moveToSpace(spaceHistPrev)
+  end
 end
 
 local function reload_yabai()
@@ -129,8 +161,10 @@ end
 module.start = function()
   hs.hotkey.bind('alt', '[', function() goToNextSpace(false) end)
   hs.hotkey.bind('alt', ']', function() goToNextSpace(true) end)
+  hs.hotkey.bind('alt', 'b', function() goBackToPreviousSpace() end)
   hs.hotkey.bind(atsh, '[', function() moveToNextSpace(false) end)
   hs.hotkey.bind(atsh, ']', function() moveToNextSpace(true) end)
+  hs.hotkey.bind(atsh, 'b', function() moveBackToPreviousSpace() end)
 
   hs.hotkey.bind('alt', '1', function() goToSpaceN(1) end)
   hs.hotkey.bind('alt', '2', function() goToSpaceN(2) end)
@@ -152,7 +186,16 @@ module.start = function()
 end
 
 module.stop = function()
+end
 
+module.on_space_event = function()
+  -- log.i("on_space_event")
+  local currSpace = spaces.activeSpace()
+  if currSpace ~= spaceHistCurr then
+    spaceHistPrev = spaceHistCurr
+    spaceHistCurr = currSpace
+    log.i("on_space_event: spaceHistPrev", spaceHistPrev, ", spaceHistCurr", spaceHistCurr)
+  end
 end
 
 return module
