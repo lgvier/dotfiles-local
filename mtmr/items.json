@@ -1,12 +1,12 @@
 [
-  { "type": "escape", "align": "left", "width": 48 },
-  { "type": "exitTouchbar", "title": "⌘", "align": "left", "width": 48 },
+  { "type": "escape", "align": "left", "width": 50 },
+  { "type": "exitTouchbar", "title": "⌘", "align": "left", "width": 50 },
   {
     "type": "staticButton",
     "title": "F2",
     "action": "keyPress",
     "keycode": 120,
-    "width": 60,
+    "width": 50,
     "align": "left"
   },
   {
@@ -14,7 +14,7 @@
     "title": "F3",
     "action": "keyPress",
     "keycode": 99,
-    "width": 60,
+    "width": 50,
     "align": "left"
   },
   {
@@ -22,7 +22,7 @@
     "title": "F4",
     "action": "keyPress",
     "keycode": 118,
-    "width": 60,
+    "width": 50,
     "align": "left"
   },
   {
@@ -30,7 +30,7 @@
     "title": "F5",
     "action": "keyPress",
     "keycode": 96,
-    "width": 60,
+    "width": 50,
     "align": "left"
   },
   {
@@ -38,7 +38,7 @@
     "title": "F6",
     "action": "keyPress",
     "keycode": 97,
-    "width": 60,
+    "width": 50,
     "align": "left"
   },
   {
@@ -46,7 +46,7 @@
     "title": "F7",
     "action": "keyPress",
     "keycode": 98,
-    "width": 60,
+    "width": 50,
     "align": "left"
   },
   {
@@ -54,22 +54,24 @@
     "title": "F8",
     "action": "keyPress",
     "keycode": 100,
-    "width": 60,
+    "width": 50,
     "align": "left"
   },
   {
     "type": "volumeDown",
     "bordered": false,
     "align": "right",
-    "width": 25,
+    "width": 20,
   },
-  { "type": "volume", "width": 120, "align": "right"},
+  { "type": "volume", "width": 100, "align": "right"},
   {
     "type": "volumeUp",
     "bordered": false,
     "align": "right",
-    "width": 25
+    "width": 20
   },
+  { "type": "play", "width": 50, "align": "right" },
+  { "type": "next", "width": 50, "align": "right" },
   { "type": "brightnessDown", "width": 50, "align": "right" },
   { "type": "brightnessUp", "width": 50, "align": "right" },
   { "type": "displaySleep", "width": 40, "align": "right", "bordered": false },
@@ -80,6 +82,7 @@
     "workTime": 1500, // set time work in seconds. Default 1500 (25 min)
     "restTime": 300, // set time rest in seconds. Default 300 (5 min)
   },
-  { "type": "weather", "refreshInterval": 60, "units": "metric", "align": "right", "bordered": false, "api_key": "2ecbe07aad19990e6726d1d4c08f138c"},
+  { "type": "weather", "refreshInterval": 600, "units": "metric", "align": "right", "bordered": false, "api_key": "2ecbe07aad19990e6726d1d4c08f138c",
+    "action": "openUrl", "url": "https://www.wunderground.com" },
   // { "type": "timeButton", "align": "right", "formatTemplate": "MMM d", "bordered": false  },
 ]

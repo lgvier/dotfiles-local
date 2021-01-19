@@ -27,6 +27,12 @@ brew install tree
 brew install --cask spotify
 brew install --cask deluge
 brew install --cask beardedspice
+brew install --cask mtmr
+brew install --cask vlc
+ln -s $HOME/.mtmr/items.json "/Users/geovani/Library/Application Support/MTMR/items.json"
+brew install coconutbattery
+brew install git
+brew install git-gui
 brew install visual-studio-code
 brew install nvim
 brew install eclipse-java
