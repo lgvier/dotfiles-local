@@ -90,10 +90,18 @@ local moveToSpace = function(space)
     log.i("moveToSpace(", space, ") screen#: ", screen)
     win:spacesMoveTo(space)
     local f = win:frame()
-    log.i("frame after moving window: ", f)
-    -- f.x = 0
-    -- f.y = 0
-    -- win:setFrame(f)
+    local sf = screen:frame()
+    log.i("win frame after moving window: ", f, ", screen frame: ", sf)
+    if (f.x > sf.w or f.y > sf.h) then
+      log.i("moving window into visible screen frame")
+      if (f.x > sf.w) then
+        f.x = sf.w - f.w
+      end
+      if (f.y > sf.h) then
+        f.y = sf.h - f.h
+      end
+      win:setFrame(f)
+    end
     spaces.changeToSpace(space)
     win:focus()
   end

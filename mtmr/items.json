@@ -1,6 +1,6 @@
 [
-  { "type": "escape", "align": "left", "width": 50 },
-  { "type": "exitTouchbar", "title": "⌘", "align": "left", "width": 50 },
+  // { "type": "escape", "align": "left", "width": 50 },
+  { "type": "exitTouchbar", "title": "⌘", "align": "left", "width": 35 },
   {
     "type": "staticButton",
     "title": "F2",

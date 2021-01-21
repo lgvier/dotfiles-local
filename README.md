@@ -29,7 +29,7 @@ brew install --cask deluge
 brew install --cask beardedspice
 brew install --cask mtmr
 brew install --cask vlc
-ln -s $HOME/.mtmr/items.json "/Users/geovani/Library/Application Support/MTMR/items.json"
+rm "$HOME/Library/Application Support/MTMR/items.json" && ln -s $HOME/.mtmr/items.json "$HOME/Library/Application Support/MTMR/items.json"
 brew install coconutbattery
 brew install git
 brew install git-gui

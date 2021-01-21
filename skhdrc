@@ -65,7 +65,7 @@ alt - i : yabai -m query --spaces | jq -re ".[] | select(.visible == 1).index" |
 alt - o : yabai -m query --spaces | jq -re ".[] | select(.visible == 1).index" | xargs -I{} yabai -m query --windows --space {} | jq -sre "add | sort_by(.display, .frame.x, .frame.y, .id) | nth(index(map(select(.focused == 1))) + 1).id" | xargs -I{} yabai -m window --focus {}
 
 # toggle float
-alt - t : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2
+alt - t : yabai -m window --toggle float; yabai -m window --grid 12:12:1:1:10:10
 
 alt + shift - y : yabai -m space --layout bsp && open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'
 alt + shift - f : yabai -m space --layout float && open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'
