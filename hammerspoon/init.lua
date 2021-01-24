@@ -4,6 +4,7 @@ mash = {"ctrl","alt","cmd"}
 ctcm = {"ctrl","cmd"}
 atcm = {"alt","cmd"}
 atsh = {"alt","shift"}
+ctsh = {"ctrl","shift"}
 
 config = {} 
 

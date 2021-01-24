@@ -83,7 +83,7 @@ local goToSpace = function(space)
   end
 end
 
-local moveToSpace = function(space)
+local moveToSpace = function(space, goToNewSpace)
   if space then
     local win = hs.window.focusedWindow()
     local screen = findSpaceScreen(space)
@@ -102,8 +102,12 @@ local moveToSpace = function(space)
       end
       win:setFrame(f)
     end
-    spaces.changeToSpace(space)
-    win:focus()
+    if goToNewSpace then
+      spaces.changeToSpace(space)
+      win:focus()
+    else
+      screen_ext.focusScreen(screen)
+    end
   end
 end
 
@@ -113,10 +117,10 @@ local goToNextSpace = function(fwd)
   goToSpace(space)
 end
 
-local moveToNextSpace = function(fwd)
+local moveToNextSpace = function(fwd, goToNewSpace)
   local space = findNextSpace(fwd)
   log.i('moveToNextSpace - next space fwd?', fwd, ':', space)
-  moveToSpace(space)
+  moveToSpace(space, goToNewSpace)
 end
 
 local goToSpaceN = function(n)
@@ -131,15 +135,15 @@ local goToSpaceN = function(n)
   end
 end
 
-local moveToSpaceN = function(n)
+local moveToSpaceN = function(n, goToNewSpace)
   local spaceIds = getAllSpaceIds()
   local space = spaceIds[n]
   local currSpace = spaces.activeSpace()
   log.i("moveToSpaceN(", n, ") space id: ", space, ", currSpace", currSpace)
   if space ~= currSpace then
-    moveToSpace(space)
+    moveToSpace(space, goToNewSpace)
   else
-    moveBackToPreviousSpace()
+    moveBackToPreviousSpace(goToNewSpace)
   end
 end
 
@@ -150,10 +154,10 @@ local goBackToPreviousSpace = function()
   end
 end
 
-local moveBackToPreviousSpace = function()
+local moveBackToPreviousSpace = function(goToNewSpace)
   log.i("moveBackToPreviousSpace spaceHistPrev", spaceHistPrev)
   if spaceHistPrev then
-    moveToSpace(spaceHistPrev)
+    moveToSpace(spaceHistPrev, goToNewSpace)
   end
 end
 
@@ -170,9 +174,12 @@ module.start = function()
   hs.hotkey.bind('alt', '[', function() goToNextSpace(false) end)
   hs.hotkey.bind('alt', ']', function() goToNextSpace(true) end)
   hs.hotkey.bind('alt', 'b', function() goBackToPreviousSpace() end)
-  hs.hotkey.bind(atsh, '[', function() moveToNextSpace(false) end)
-  hs.hotkey.bind(atsh, ']', function() moveToNextSpace(true) end)
-  hs.hotkey.bind(atsh, 'b', function() moveBackToPreviousSpace() end)
+  hs.hotkey.bind(atsh, '[', function() moveToNextSpace(false, true) end)
+  hs.hotkey.bind(atsh, ']', function() moveToNextSpace(true, true) end)
+  hs.hotkey.bind(atsh, 'b', function() moveBackToPreviousSpace(true) end)
+  hs.hotkey.bind(ctsh, '[', function() moveToNextSpace(false, false) end)
+  hs.hotkey.bind(ctsh, ']', function() moveToNextSpace(true, false) end)
+  hs.hotkey.bind(ctsh, 'b', function() moveBackToPreviousSpace(false) end)
 
   hs.hotkey.bind('alt', '1', function() goToSpaceN(1) end)
   hs.hotkey.bind('alt', '2', function() goToSpaceN(2) end)
@@ -180,12 +187,18 @@ module.start = function()
   hs.hotkey.bind('alt', '4', function() goToSpaceN(4) end)
   hs.hotkey.bind('alt', '5', function() goToSpaceN(5) end)
   hs.hotkey.bind('alt', '6', function() goToSpaceN(6) end)
-  hs.hotkey.bind(atsh, '1', function() moveToSpaceN(1) end)
-  hs.hotkey.bind(atsh, '2', function() moveToSpaceN(2) end)
-  hs.hotkey.bind(atsh, '3', function() moveToSpaceN(3) end)
-  hs.hotkey.bind(atsh, '4', function() moveToSpaceN(4) end)
-  hs.hotkey.bind(atsh, '5', function() moveToSpaceN(5) end)
-  hs.hotkey.bind(atsh, '6', function() moveToSpaceN(6) end)
+  hs.hotkey.bind(atsh, '1', function() moveToSpaceN(1, true) end)
+  hs.hotkey.bind(atsh, '2', function() moveToSpaceN(2, true) end)
+  hs.hotkey.bind(atsh, '3', function() moveToSpaceN(3, true) end)
+  hs.hotkey.bind(atsh, '4', function() moveToSpaceN(4, true) end)
+  hs.hotkey.bind(atsh, '5', function() moveToSpaceN(5, true) end)
+  hs.hotkey.bind(atsh, '6', function() moveToSpaceN(6, true) end)
+  hs.hotkey.bind(ctsh, '1', function() moveToSpaceN(1, false) end)
+  hs.hotkey.bind(ctsh, '2', function() moveToSpaceN(2, false) end)
+  hs.hotkey.bind(ctsh, '3', function() moveToSpaceN(3, false) end)
+  hs.hotkey.bind(ctsh, '4', function() moveToSpaceN(4, false) end)
+  hs.hotkey.bind(ctsh, '5', function() moveToSpaceN(5, false) end)
+  hs.hotkey.bind(ctsh, '6', function() moveToSpaceN(6, false) end)
 
   -- hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/yabairc", reload_yabai):start()
   hs.hotkey.bind('alt', 'y', reload_yabai)

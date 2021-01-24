@@ -29,6 +29,8 @@ brew install --cask deluge
 brew install --cask beardedspice
 brew install --cask mtmr
 brew install --cask vlc
+brew install --cask private-internet-access
+# brew install --cask trilium-notes
 rm "$HOME/Library/Application Support/MTMR/items.json" && ln -s $HOME/.mtmr/items.json "$HOME/Library/Application Support/MTMR/items.json"
 brew install coconutbattery
 brew install git
@@ -38,6 +40,7 @@ brew install nvim
 brew install eclipse-java
 # rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+cargo install cargo-edit
 cargo install cargo-watch`
 ```
 
@@ -69,6 +72,8 @@ brew install bitbar
 # 1. set bitbar plugins location to ~/dotfiles-local/bitbar
 # 2. in Preferences > Acessibility > Display, check Reduce motion
 ```
+Limelight patch not to draw on maximized windows:
+https://github.com/koekeishiya/limelight/issues/18
 
 ## Step 7 (optional):
 Sane mac os defaults
