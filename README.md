@@ -56,7 +56,7 @@ tar -xzf ~/Downloads/spaces-v<Tab>
 ## Step 6 (optional):
 Install yabai
 ```
-mkdir ~git
+mkdir ~/git
 git clone https://github.com/koekeishiya/limelight.git ~/git/limelight
 cd ~/git/limelight
 make
