@@ -59,9 +59,8 @@ yabai -m signal --add event=system_woke action="$HOME/.bin/yabai/spaceEvent.sh"
 # add the following if you want window status reporting
 #yabai -m signal --add event=window_focused="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
 
-#Limelight addon (Kill it and start it each time Yabai starts)
-killall limelight &>/dev/null
-/usr/local/bin/limelight &>/dev/null &
+# Limelight addon
+$HOME/.bin/yabai/limelight.sh
 
 echo "yabai configuration loaded.."
 

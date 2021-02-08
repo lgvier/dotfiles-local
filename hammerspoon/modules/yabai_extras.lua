@@ -7,23 +7,37 @@ local log = hs.logger.new('yabai_extras','debug')
 -- https://github.com/asmagill/hs._asm.undocumented.spaces
 local spaces = require("hs._asm.undocumented.spaces")
 
-local screen_ext = require("ext.screen")
-
-local spaceHistCurr = nil
-local spaceHistPrev = nil
+local ext_screen = require("ext.screen")
+local ext_utils = require("ext.utils")
 
 local getAllSpaceIds = function()
   -- invoke yabai to get the spaces in the correct order
-  local handle = io.popen("/usr/local/bin/yabai -m query --spaces | /usr/local/bin/jq '.[] | .id'")
-  local cmdResult = handle:read("*a")
-  handle:close()
+  local cmdResult = ext_utils.capture(module.binPath .. "/yabai -m query --spaces | " .. module.binPath .. "/jq '.[] | .id'")
   local result = {}
   local spaceCnt = 0
   for line in string.gmatch(cmdResult,'[^\r\n]+') do
     spaceCnt = spaceCnt + 1
-    log.d('getAllSpaceIds result[', spaceCnt, ']=', line)
+    -- log.d('getAllSpaceIds result[', spaceCnt, ']=', line)
     result[spaceCnt] = tonumber(line)
   end
+  -- reorder spaces if needed
+  -- mac spaces are sometimes incorrectly ordered when using multiple monitors
+  if hostConfig then
+    local spaceMappings = hostConfig['spaceNumberMappings']
+    if spaceMappings then
+      log.d('spaceMappings found')
+      table.sort(result, function(a,b)
+        local am = spaceMappings[a] or a 
+        local bm = spaceMappings[b] or b
+        -- log.d('am', am, 'bm', bm)
+        return am > bm 
+      end)
+    end
+  end
+  -- cache for rendering the menu bar
+  module.spaceIds = result
+  --
+  log.d('getAllSpaceIds spaceCnt: ', spaceCnt)
   return result
 end
 
@@ -71,7 +85,7 @@ local goToSpace = function(space)
     log.i("goToSpace(", space, ") screen#: ", screen)
     if screen ~= hs.screen.mainScreen() then
       log.i('changing focus to screen', screen)
-      screen_ext.focusScreen(screen)
+      ext_screen.focusScreen(screen)
     end
     local currSpace = spaces.activeSpace()
     if space ~= currSpace then
@@ -106,8 +120,22 @@ local moveToSpace = function(space, goToNewSpace)
       spaces.changeToSpace(space)
       win:focus()
     else
-      screen_ext.focusScreen(screen)
+      ext_screen.focusScreen(screen)
     end
+  end
+end
+
+local goBackToPreviousSpace = function()
+  log.i("goBackToPreviousSpace spaceHistPrev", module.spaceHistPrev)
+  if module.spaceHistPrev then
+    goToSpace(module.spaceHistPrev)
+  end
+end
+
+local moveBackToPreviousSpace = function(goToNewSpace)
+  log.i("moveBackToPreviousSpace spaceHistPrev", module.spaceHistPrev)
+  if module.spaceHistPrev then
+    moveToSpace(module.spaceHistPrev, goToNewSpace)
   end
 end
 
@@ -147,30 +175,62 @@ local moveToSpaceN = function(n, goToNewSpace)
   end
 end
 
-local goBackToPreviousSpace = function()
-  log.i("goBackToPreviousSpace spaceHistPrev", spaceHistPrev)
-  if spaceHistPrev then
-    goToSpace(spaceHistPrev)
-  end
-end
-
-local moveBackToPreviousSpace = function(goToNewSpace)
-  log.i("moveBackToPreviousSpace spaceHistPrev", spaceHistPrev)
-  if spaceHistPrev then
-    moveToSpace(spaceHistPrev, goToNewSpace)
-  end
-end
-
 local function reload_yabai()
-  local result = os.execute("/usr/local/bin/brew services restart koekeishiya/formulae/yabai");
+  -- FIXME
+  local result = os.execute(module.binPath .. "/brew services restart koekeishiya/formulae/yabai");
   log.i(result and "yabai restarted" or "yabai restart failed")
 end
 local function reload_skhdrc()
-  local result = os.execute("/usr/local/bin/skhd --reload");
+  local result = os.execute(module.binPath .. "/skhd --reload");
   log.i(result and "skhd config reloaded" or "skhd config reload failed")
 end
 
+local function updateMenuBar()
+  if not module.spaceIds then
+    getAllSpaceIds()
+  end
+  local currSpace = spaces.activeSpace()
+
+  local t = { }
+  local spaceCnt = 0
+  for k, v in pairs(module.spaceIds) do
+    spaceCnt = spaceCnt + 1
+    if v == currSpace then
+      t[#t+1] = "["
+    end
+    t[#t+1] = tostring(spaceCnt)
+    if v == currSpace then
+      t[#t+1] = "]"
+    end
+  end
+
+  module.menubar:setTitle(table.concat(t))
+end
+
+local function initMenuBar()
+  module.menubar = hs.menubar.new()
+  module.menubar:setMenu(
+    {
+      { title = "Reload yabai", fn = reload_yabai },
+      { title = "Reload skhd", fn = reload_skhdrc },
+      -- { title = "-" },
+    })
+  updateMenuBar()
+end
+
+local function setBinPath()
+  -- default on apple silicon
+  module.binPath = "/opt/homebrew/bin"
+  if not ext_utils.file_exists(module.binPath .. "/yabai") then
+  -- default on intel silicon
+  module.binPath = "/usr/local/bin"
+  end
+end
+
 module.start = function()
+  setBinPath()
+  initMenuBar()
+
   hs.hotkey.bind('alt', '[', function() goToNextSpace(false) end)
   hs.hotkey.bind('alt', ']', function() goToNextSpace(true) end)
   hs.hotkey.bind('alt', 'b', function() goBackToPreviousSpace() end)
@@ -201,21 +261,26 @@ module.start = function()
   hs.hotkey.bind(ctsh, '6', function() moveToSpaceN(6, false) end)
 
   -- hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/yabairc", reload_yabai):start()
-  hs.hotkey.bind('alt', 'y', reload_yabai)
-  hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/skhdrc", reload_skhdrc):start()
-  log.i("yabai_extras module started")
+  -- hs.hotkey.bind('alt', 'y', reload_yabai)
+  -- hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/skhdrc", reload_skhdrc):start()
+
+  log.i("yabai_extras module started.")
 end
 
 module.stop = function()
+  if module.menubar then
+    module.menubar:delete()
+  end
 end
 
 module.on_space_event = function()
   -- log.i("on_space_event")
   local currSpace = spaces.activeSpace()
-  if currSpace ~= spaceHistCurr then
-    spaceHistPrev = spaceHistCurr
-    spaceHistCurr = currSpace
-    log.i("on_space_event: spaceHistPrev", spaceHistPrev, ", spaceHistCurr", spaceHistCurr)
+  if currSpace ~= module.spaceHistCurr then
+    module.spaceHistPrev = module.spaceHistCurr
+    module.spaceHistCurr = currSpace
+    updateMenuBar()
+    log.i("on_space_event: spaceHistPrev", module.spaceHistPrev, ", spaceHistCurr", module.spaceHistCurr)
   end
 end
 

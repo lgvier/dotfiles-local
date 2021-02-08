@@ -6,7 +6,22 @@ atcm = {"alt","cmd"}
 atsh = {"alt","shift"}
 ctsh = {"ctrl","shift"}
 
-config = {} 
+local config = {
+  ['Work'] = {
+    ['spaceNumberMappings'] = {
+      [3] = 5,
+      [4] = 6,
+      [5] = 3,
+      [6] = 4,
+    },
+  },
+  ['MacBook Air'] = {
+    ['sleepEventsEnabled'] = true,
+  }
+}
+local hostName = hs.host.localizedName()
+log.i('hostName:', hostName)
+hostConfig = config[hostName]
 
 function reload_config(files)
   hs.reload()
@@ -14,13 +29,15 @@ end
 hs.hotkey.bind(mash, "`", reload_config)
 hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/hammerspoon/", reload_config):start()
 
--- hhtwm_config = require('modules.hhtwm_config');
--- hhtwm_shortcuts = require('modules.hhtwm_shortcuts');
--- local modules = { hhtwm_shortcuts, hhtwm_config }
-yabai_extras = require('modules.yabai_extras');
-misc_shortcuts = require('modules.misc_shortcuts');
-sizeup = require('modules.sizeup');
+yabai_extras = require('modules.yabai_extras')
+misc_shortcuts = require('modules.misc_shortcuts')
+sizeup = require('modules.sizeup')
 local modules = { yabai_extras, misc_shortcuts, sizeup }
+
+if hostConfig and hostConfig['sleepEventsEnabled'] then
+  sleep_events = require('modules.sleep_events')
+  modules[#modules+1] = sleep_events
+end
 
 hs.fnutils.each(modules, function(module)
   if module then module.start() end

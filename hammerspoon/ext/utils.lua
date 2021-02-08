@@ -26,4 +26,9 @@ module.capitalize = function(str)
   return str:gsub("^%l", string.upper)
 end
 
+module.file_exists = function(path)
+  local f=io.open(path,"r")
+  if f~=nil then io.close(f) return true else return false end
+end
+
 return module
