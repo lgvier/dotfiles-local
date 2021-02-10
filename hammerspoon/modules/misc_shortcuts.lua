@@ -106,9 +106,10 @@ module.start = function()
   end
   hs.hotkey.bind(mash, 'P', launch_evernote)
 
-  hs.hotkey.bind(mash, 'P', function() hs.application.launchOrFocus("Spotify") end)
+  -- hs.hotkey.bind(mash, 'P', function() hs.application.launchOrFocus("Spotify") end)
   hs.hotkey.bind(mash, 'W', function() hs.application.launchOrFocus("WhatsApp") end)
   hs.hotkey.bind(mash, 'I', function() hs.application.launchOrFocus("Safari") end)
+  hs.hotkey.bind(mash, 'Z', function() hs.application.launchOrFocus("zoom.us") end)
 
 --  local function code_layout()
 --    launch_chrome()

@@ -7,16 +7,16 @@ atsh = {"alt","shift"}
 ctsh = {"ctrl","shift"}
 
 local config = {
-  ['Work'] = {
-    ['spaceNumberMappings'] = {
-      [3] = 5,
-      [4] = 6,
-      [5] = 3,
-      [6] = 4,
-    },
-  },
+  -- ['Work'] = {
+  --   ['spaceNumberMappings'] = {
+  --     [3] = 5,
+  --     [4] = 6,
+  --     [5] = 3,
+  --     [6] = 4,
+  --   },
+  -- },
   ['MacBook Air'] = {
-    ['sleepEventsEnabled'] = true,
+    ['toggleSharingOnSleep'] = true,
   }
 }
 local hostName = hs.host.localizedName()
@@ -32,12 +32,8 @@ hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/hammerspoon/", reload_c
 yabai_extras = require('modules.yabai_extras')
 misc_shortcuts = require('modules.misc_shortcuts')
 sizeup = require('modules.sizeup')
-local modules = { yabai_extras, misc_shortcuts, sizeup }
-
-if hostConfig and hostConfig['sleepEventsEnabled'] then
-  sleep_events = require('modules.sleep_events')
-  modules[#modules+1] = sleep_events
-end
+sleep_events = require('modules.sleep_events')
+local modules = { yabai_extras, misc_shortcuts, sizeup, sleep_events }
 
 hs.fnutils.each(modules, function(module)
   if module then module.start() end
