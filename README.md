@@ -16,7 +16,9 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ## Step 4 (optional):
 Random apps
 ```
-brew install iterm2
+# brew install iterm2
+# or
+# brew install --cask alacritty
 mkdir ~/git
 git clone https://github.com/dracula/iterm.git ~/git/dracula-iterm
 # activate the theme in the iterm presets
@@ -31,6 +33,8 @@ brew install --cask beardedspice
 brew install --cask mtmr
 brew install --cask vlc
 brew install --cask private-internet-access
+brew install --cask the-unarchiver
+brew install --cask cyberduck
 # brew install --cask trilium-notes
 rm "$HOME/Library/Application Support/MTMR/items.json" && ln -s $HOME/.mtmr/items.json "$HOME/Library/Application Support/MTMR/items.json"
 brew install coconutbattery
