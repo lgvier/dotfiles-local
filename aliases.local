@@ -22,3 +22,10 @@ if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
   alias j11='export JAVA_HOME=$(/usr/libexec/java_home -v 11)'
   alias j15='export JAVA_HOME=$(/usr/libexec/java_home -v 15)'
 fi
+
+# aliases.local is the last script called
+# therefore attaching to tmux from here
+if [ -z "$TMUX" ] && [ -z "$(tmux list-clients)" ]
+then
+    tmux at
+fi

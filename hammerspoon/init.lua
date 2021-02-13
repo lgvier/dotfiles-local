@@ -16,6 +16,7 @@ local config = {
   --   },
   -- },
   ['MacBook Air'] = {
+    ['app-vscode'] = 'Visual Studio Code - Insiders',
     ['toggleSharingOnSleep'] = true,
   }
 }

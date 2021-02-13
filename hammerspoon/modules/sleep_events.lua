@@ -56,12 +56,12 @@ module.start = function()
   if toggleSharingOnSleep then
     local pow = hs.caffeinate.watcher
     module.caffeinate_watcher = hs.caffeinate.watcher.new(function(event)
-      -- log.i("caffeinate event", event)
+      log.i("caffeinate event", event)
       -- local name = "?"
       -- for key,val in pairs(pow) do
       --     if event == val then name = key end
       -- end
-      log.i("caffeinate event", event, "name", name)
+      -- log.i("caffeinate event", event, "name", name)
       if event == pow.screensDidWake or event == pow.sessionDidBecomeActive or event == pow.screensaverDidStop then
         log.i("awake!")
         local result = os.execute("sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.smbd.plist");
