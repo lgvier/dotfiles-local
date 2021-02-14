@@ -68,20 +68,23 @@ module.start = function()
 
   hs.hotkey.bind(mash, 'F', function() hs.application.launchOrFocus("Firefox") end)
   hs.hotkey.bind(mash, 'G', function() hs.application.launchOrFocus("Google Chrome") end)
-  hs.hotkey.bind(mash, 'T', function() hs.application.launchOrFocus("Alacritty") end)
+  hs.hotkey.bind(mash, 'T', function() hs.application.launchOrFocus(hostConfig['app-terminal'] or "Alacritty") end)
   hs.hotkey.bind(mash, 'S', function() hs.application.launchOrFocus("Slack") end)
   hs.hotkey.bind(mash, 'P', function() hs.application.launchOrFocus("Evernote") end)
   hs.hotkey.bind(mash, 'O', function() hs.application.launchOrFocus("Spotify") end)
   hs.hotkey.bind(mash, 'W', function() hs.application.launchOrFocus("WhatsApp") end)
   hs.hotkey.bind(mash, 'I', function() hs.application.launchOrFocus("Safari") end)
   hs.hotkey.bind(mash, 'Z', function() hs.application.launchOrFocus("zoom.us") end)
+  hs.hotkey.bind('alt', 'Z', hs.caffeinate.systemSleep)
 
   local function btConnect(addr)
     local result = os.execute(hostConfig.binPath .. "/blueutil --connect " .. addr)
     log.i('bt connected?', result)
   end
-  -- momentum
-  hs.hotkey.bind(mash, '1', function() btConnect("00-1b-66-81-85-50") end)
+  hs.hotkey.bind(mash, '1', function() btConnect("00-1b-66-81-85-50") end) -- m
+  hs.hotkey.bind(mash, '2', function() btConnect("00-1d-43-a0-2a-ef") end) -- a
+  hs.hotkey.bind(mash, '3', function() btConnect("00-25-bb-04-11-ba") end) -- t
+  hs.hotkey.bind(mash, '4', function() btConnect("20-04-20-08-1c-74") end) -- f
 
   log.i("misc_shortcuts module started")
 end

@@ -27,7 +27,8 @@ local config = {
   --   },
   -- },
   ['MacBook Air'] = {
-    ['app-vscode'] = 'Visual Studio Code - Insiders',
+    ['app-vscode'] = 'Visual Studio Code - Insiders', -- arm64 binaries
+    ['app-terminal'] = 'Terminal', -- saves battery
     ['toggleSharingOnSleep'] = true,
   }
 }

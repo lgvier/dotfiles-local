@@ -47,6 +47,7 @@ end
 
 module.start = function()
 
+  module.lastSleep = 0
   module.menubar = hs.menubar.new()
   module.menubar:setClickCallback(caffeineClicked)
   setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
@@ -64,13 +65,20 @@ module.start = function()
       -- log.i("caffeinate event", event, "name", name)
       if event == pow.screensDidWake or event == pow.sessionDidBecomeActive or event == pow.screensaverDidStop then
         log.i("awake!")
+        module.lastSleep = 0
         local result = os.execute("sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.smbd.plist");
         log.i(result and "filesharing started" or "filesharing start failed")
       elseif event == pow.screensDidSleep or event == pow.systemWillSleep or event == pow.systemWillPowerOff
         or event == pow.sessionDidResignActive or event == pow.screensDidLock then
-        log.i("sleeping...")
-        local result = os.execute("sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.smbd.plist");
-        log.i(result and "filesharing stopped" or "filesharing stop failed")
+        local now = os.time()
+        if (now - module.lastSleep) > 5 then
+          log.i("sleeping...")
+          module.lastSleep = now
+          local result = os.execute("sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.smbd.plist");
+          log.i(result and "filesharing stopped" or "filesharing stop failed")
+        else
+          log.d("ignoring sleep event (just processed another one", (now - module.lastSleep), "second(s) ago)");
+        end
       end
     end)
     module.caffeinate_watcher:start()
