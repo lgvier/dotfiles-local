@@ -12,7 +12,7 @@ local ext_utils = require("ext.utils")
 
 local getAllSpaceIds = function()
   -- invoke yabai to get the spaces in the correct order
-  local cmdResult = ext_utils.capture(module.binPath .. "/yabai -m query --spaces | " .. module.binPath .. "/jq '.[] | .id'")
+  local cmdResult = ext_utils.capture(hostConfig.binPath .. "/yabai -m query --spaces | " .. hostConfig.binPath .. "/jq '.[] | .id'")
   local result = {}
   local spaceCnt = 0
   for line in string.gmatch(cmdResult,'[^\r\n]+') do
@@ -177,11 +177,11 @@ end
 
 local function reload_yabai()
   -- FIXME
-  local result = os.execute(module.binPath .. "/brew services restart koekeishiya/formulae/yabai");
+  local result = os.execute(hostConfig.binPath .. "/brew services restart koekeishiya/formulae/yabai");
   log.i(result and "yabai restarted" or "yabai restart failed")
 end
 local function reload_skhdrc()
-  local result = os.execute(module.binPath .. "/skhd --reload");
+  local result = os.execute(hostConfig.binPath .. "/skhd --reload");
   log.i(result and "skhd config reloaded" or "skhd config reload failed")
 end
 
@@ -218,17 +218,7 @@ local function initMenuBar()
   updateMenuBar()
 end
 
-local function setBinPath()
-  -- default on apple silicon
-  module.binPath = "/opt/homebrew/bin"
-  if not ext_utils.file_exists(module.binPath .. "/yabai") then
-  -- default on intel silicon
-  module.binPath = "/usr/local/bin"
-  end
-end
-
 module.start = function()
-  setBinPath()
   initMenuBar()
 
   hs.hotkey.bind('alt', '[', function() goToNextSpace(false) end)

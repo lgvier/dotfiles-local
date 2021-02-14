@@ -76,6 +76,13 @@ module.start = function()
   hs.hotkey.bind(mash, 'I', function() hs.application.launchOrFocus("Safari") end)
   hs.hotkey.bind(mash, 'Z', function() hs.application.launchOrFocus("zoom.us") end)
 
+  local function btConnect(addr)
+    local result = os.execute(hostConfig.binPath .. "/blueutil --connect " .. addr)
+    log.i('bt connected?', result)
+  end
+  -- momentum
+  hs.hotkey.bind(mash, '1', function() btConnect("00-1b-66-81-85-50") end)
+
   log.i("misc_shortcuts module started")
 end
 

@@ -27,6 +27,7 @@ brew install thefuck
 brew install kubectl
 brew install tree
 brew install watch
+brew install blueutil
 brew install --cask spotify
 brew install --cask deluge
 brew install --cask beardedspice

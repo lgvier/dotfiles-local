@@ -1,10 +1,21 @@
 local log = hs.logger.new('init.lua','debug')
+local ext_utils = require("ext.utils")
 
 mash = {"ctrl","alt","cmd"}
 ctcm = {"ctrl","cmd"}
 atcm = {"alt","cmd"}
 atsh = {"alt","shift"}
 ctsh = {"ctrl","shift"}
+
+local function getBinPath()
+  -- default on apple silicon
+  local binPath = "/opt/homebrew/bin"
+  if not ext_utils.file_exists(binPath .. "/yabai") then
+    -- default on intel silicon
+    binPath = "/usr/local/bin"
+  end
+  return binPath
+end
 
 local config = {
   -- ['Work'] = {
@@ -23,6 +34,7 @@ local config = {
 local hostName = hs.host.localizedName()
 log.i('hostName:', hostName)
 hostConfig = config[hostName]
+hostConfig.binPath = getBinPath()
 
 function reload_config(files)
   hs.reload()
