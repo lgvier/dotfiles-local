@@ -184,6 +184,10 @@ local function reload_skhdrc()
   local result = os.execute(hostConfig.binPath .. "/skhd --reload");
   log.i(result and "skhd config reloaded" or "skhd config reload failed")
 end
+local function reload_limelight()
+  local result = os.execute(os.getenv("HOME") .. "/.bin/yabai/limelight.sh");
+  log.i(result and "limelight reloaded" or "limelight reload failed")
+end
 
 local function updateMenuBar()
   if not module.spaceIds then
@@ -213,6 +217,7 @@ local function initMenuBar()
     {
       { title = "Reload yabai", fn = reload_yabai },
       { title = "Reload skhd", fn = reload_skhdrc },
+      { title = "Reload limelight", fn = reload_limelight },
       -- { title = "-" },
     })
   updateMenuBar()

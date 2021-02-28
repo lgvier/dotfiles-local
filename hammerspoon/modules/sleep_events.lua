@@ -66,8 +66,8 @@ module.start = function()
       if event == pow.screensDidWake or event == pow.sessionDidBecomeActive or event == pow.screensaverDidStop then
         log.i("awake!")
         module.lastSleep = 0
-        local result = os.execute("sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.smbd.plist");
-        log.i(result and "filesharing started" or "filesharing start failed")
+        -- local result = os.execute("sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.smbd.plist");
+        -- log.i(result and "filesharing started" or "filesharing start failed")
       elseif event == pow.screensDidSleep or event == pow.systemWillSleep or event == pow.systemWillPowerOff
         or event == pow.sessionDidResignActive or event == pow.screensDidLock then
         local now = os.time()

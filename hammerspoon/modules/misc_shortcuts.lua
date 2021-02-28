@@ -75,6 +75,7 @@ module.start = function()
   hs.hotkey.bind(mash, 'W', function() hs.application.launchOrFocus("WhatsApp") end)
   hs.hotkey.bind(mash, 'I', function() hs.application.launchOrFocus("Safari") end)
   hs.hotkey.bind(mash, 'Z', function() hs.application.launchOrFocus("zoom.us") end)
+  hs.hotkey.bind(mash, 'V', function() hs.application.launchOrFocus("IINA") end)
   hs.hotkey.bind('alt', 'Z', hs.caffeinate.systemSleep)
 
   local function btConnect(addr)
@@ -85,6 +86,7 @@ module.start = function()
   hs.hotkey.bind(mash, '2', function() btConnect("00-1d-43-a0-2a-ef") end) -- a
   hs.hotkey.bind(mash, '3', function() btConnect("00-25-bb-04-11-ba") end) -- t
   hs.hotkey.bind(mash, '4', function() btConnect("20-04-20-08-1c-74") end) -- f
+  hs.hotkey.bind(mash, '5', function() btConnect("94-08-53-e0-bc-aa") end) -- v
 
   log.i("misc_shortcuts module started")
 end

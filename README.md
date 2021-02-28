@@ -32,7 +32,9 @@ brew install --cask spotify
 brew install --cask deluge
 brew install --cask beardedspice
 brew install --cask mtmr
-brew install --cask vlc
+# brew install --cask vlc
+brew install --cask iina
+brew install --cask plex
 brew install --cask private-internet-access
 brew install --cask the-unarchiver
 brew install --cask cyberduck
