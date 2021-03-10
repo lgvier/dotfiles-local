@@ -4,6 +4,10 @@ unbind C-b
 set-option -g prefix C-a
 bind-key C-a send-prefix
 
+# unbind C-s to use it on ssh tmux sessions
+unbind C-s
+set-option -g prefix2 C-b
+
 set-option -g mouse on
 bind m run "if [[ `tmux show-options | grep mouse.*on` ]]; then toggle=off; else toggle=on; fi; tmux display-message \"mouse tmux: \$toggle\"; tmux set-option -w mouse \$toggle &> /dev/null;"
 

@@ -96,6 +96,11 @@ defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
 defaults write NSGlobalDomain AppleLanguages -array "en" "us"
 defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
 sudo systemsetup -settimezone "America/New_York" > /dev/null
+
+# disable Doc "bouncing"
+defaults write com.apple.dock no-bouncing -bool TRUE
+killall Dock
+
 # reboot
 ```
 Dont connect bluetooth audio devices automatically:

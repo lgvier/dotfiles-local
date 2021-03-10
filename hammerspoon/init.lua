@@ -34,7 +34,7 @@ local config = {
 }
 local hostName = hs.host.localizedName()
 log.i('hostName:', hostName)
-hostConfig = config[hostName]
+hostConfig = config[hostName] or {}
 hostConfig.binPath = getBinPath()
 
 function reload_config(files)

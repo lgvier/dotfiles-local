@@ -12,7 +12,7 @@ alt - d : skhd --key "cmd - space"
 alt - return : /Applications/iTerm.app/Contents/MacOS/iTerm2
 
 # toggle window fullscreen zoom
-alt - f : yabai -m window --toggle zoom-fullscreen
+alt - m : yabai -m window --toggle zoom-fullscreen
 
 # swap/focus window
 alt - h : yabai -m window --focus west
@@ -53,7 +53,7 @@ alt + shift - d : yabai -m window east --resize left:40:0 2> /dev/null || yabai 
 # rotate tree
 alt - r : yabai -m space --rotate 90
 # flip the tree 
-alt - m: yabai -m space --mirror y-axis
+alt - f: yabai -m space --mirror y-axis
 alt + shift - m : yabai -m space --mirror x-axis
  
 # cycle through windows
