@@ -11,15 +11,23 @@ local ext_screen = require("ext.screen")
 local ext_utils = require("ext.utils")
 
 local getAllSpaceIds = function()
-  -- invoke yabai to get the spaces in the correct order
-  local cmdResult = ext_utils.capture(hostConfig.binPath .. "/yabai -m query --spaces | " .. hostConfig.binPath .. "/jq '.[] | .id'")
   local result = {}
-  local spaceCnt = 0
-  for line in string.gmatch(cmdResult,'[^\r\n]+') do
-    spaceCnt = spaceCnt + 1
-    -- log.d('getAllSpaceIds result[', spaceCnt, ']=', line)
-    result[spaceCnt] = tonumber(line)
+  local layout = spaces.layout()
+  for sk, s in pairs(layout) do
+    log.i('sk', sk, 's', s)
+    for ssk, ss in pairs(s) do
+      log.i('ssk', ssk, 'ss', ss)
+      result[#result + 1] = ss
+    end
   end
+  -- invoke yabai to get the spaces in the correct order
+  -- local cmdResult = ext_utils.capture(hostConfig.binPath .. "/yabai -m query --spaces | " .. hostConfig.binPath .. "/jq '.[] | .id'")
+  -- local spaceCnt = 0
+  -- for line in string.gmatch(cmdResult,'[^\r\n]+') do
+  --   spaceCnt = spaceCnt + 1
+  --   -- log.d('getAllSpaceIds result[', spaceCnt, ']=', line)
+  --   result[spaceCnt] = tonumber(line)
+  -- end
   -- reorder spaces if needed
   -- mac spaces are sometimes incorrectly ordered when using multiple monitors
   if hostConfig then

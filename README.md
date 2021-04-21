@@ -32,6 +32,7 @@ brew install --cask spotify
 brew install --cask deluge
 brew install --cask beardedspice
 brew install --cask mtmr
+brew install --cask background-music
 # brew install --cask vlc
 brew install --cask iina
 brew install --cask plex
