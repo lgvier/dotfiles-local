@@ -18,14 +18,6 @@ local function getBinPath()
 end
 
 local config = {
-  -- ['Work'] = {
-  --   ['spaceNumberMappings'] = {
-  --     [3] = 5,
-  --     [4] = 6,
-  --     [5] = 3,
-  --     [6] = 4,
-  --   },
-  -- },
   ['MacBook Air'] = {
     ['app-vscode'] = 'Visual Studio Code - Insiders', -- arm64 binaries
     ['app-terminal'] = 'Terminal', -- saves battery
@@ -36,6 +28,7 @@ local hostName = hs.host.localizedName()
 log.i('hostName:', hostName)
 hostConfig = config[hostName] or {}
 hostConfig.binPath = getBinPath()
+-- log.i('hostConfig:', hostConfig['spaceNumberMappings'])
 
 function reload_config(files)
   hs.reload()
@@ -44,10 +37,11 @@ hs.hotkey.bind(mash, "`", reload_config)
 hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles-local/hammerspoon/", reload_config):start()
 
 yabai_extras = require('modules.yabai_extras')
+spaces_mgmt = require('modules.spaces_mgmt')
 misc_shortcuts = require('modules.misc_shortcuts')
 sizeup = require('modules.sizeup')
 sleep_events = require('modules.sleep_events')
-local modules = { yabai_extras, misc_shortcuts, sizeup, sleep_events }
+local modules = { yabai_extras, spaces_mgmt, misc_shortcuts, sizeup, sleep_events }
 
 hs.fnutils.each(modules, function(module)
   if module then module.start() end

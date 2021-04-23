@@ -27,5 +27,6 @@ fi
 # therefore attaching to tmux from here
 if [ "$TERM_PROGRAM" != "vscode" ] && [ -z "$TMUX" ] && [ -z "$(tmux list-clients)" ]
 then
+    cd ~/
     tmux at
 fi
