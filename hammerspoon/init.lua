@@ -54,7 +54,7 @@ hs.shutdownCallback = function()
   end)
 end
 
-hs.ipc.cliInstall()
+-- hs.ipc.cliInstall()
 
 log.i("Hammerspoon config loaded")
 hs.alert.show("Hammerspoon config loaded")
