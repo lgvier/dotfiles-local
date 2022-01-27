@@ -107,9 +107,28 @@ module.start = function()
       device:setVolume(new)
     end
   end
-
   hs.hotkey.bind(mash, 'Down', changeVolume(-3))
   hs.hotkey.bind(mash, 'Up', changeVolume(3))
+
+  function changeDefaultAudioOutDevice(names)
+    return function()
+      local device = nil
+      for k,v in pairs(names) do
+        device = hs.audiodevice.findDeviceByName(v)
+        if device ~= nil then
+          break
+        end
+      end
+      if device == nil then
+        hs.alert.show("Cannot change default audio device - Device not found.")
+      else
+        device:setDefaultOutputDevice()
+        hs.alert.show("Default device: " .. device:name())
+      end
+    end
+  end
+  hs.hotkey.bind(mash, 'Left', changeDefaultAudioOutDevice({"MacBook Pro Speakers"}))
+  hs.hotkey.bind(mash, 'Right', changeDefaultAudioOutDevice({"USB audio CODEC"}))
 
   log.i("misc_shortcuts module started")
 end
