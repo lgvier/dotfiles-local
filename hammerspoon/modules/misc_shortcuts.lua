@@ -68,7 +68,7 @@ module.start = function()
 
   hs.hotkey.bind(mash, 'F', function() hs.application.launchOrFocus("Firefox") end)
   hs.hotkey.bind(mash, 'G', function() hs.application.launchOrFocus("Google Chrome") end)
-  hs.hotkey.bind(mash, 'T', function() hs.application.launchOrFocus(hostConfig['app-terminal'] or "kitty") end)
+  hs.hotkey.bind(mash, 'T', function() hs.application.launchOrFocus(hostConfig['app-terminal'] or "Terminal") end)
   hs.hotkey.bind(mash, 'S', function() hs.application.launchOrFocus("Slack") end)
   hs.hotkey.bind(mash, 'P', function() hs.application.launchOrFocus("Evernote") end)
   hs.hotkey.bind(mash, 'O', function() hs.application.launchOrFocus("Spotify") end)
@@ -88,6 +88,28 @@ module.start = function()
   hs.hotkey.bind(mash, '3', function() btConnect("00-25-bb-04-11-ba") end) -- t
   hs.hotkey.bind(mash, '4', function() btConnect("20-04-20-08-1c-74") end) -- f
   hs.hotkey.bind(mash, '5', function() btConnect("94-08-53-e0-bc-aa") end) -- v
+
+  function changeVolume(diff)
+    -- Change the built-in speakers' volume rather than the default device's
+    -- Useful to control the volume of multiple devices (use the regular keys to control the default device)
+    return function()
+      local device = hs.audiodevice.findDeviceByName("MacBook Pro Speakers")
+      if device == nil then
+        device = hs.audiodevice.defaultOutputDevice()
+      end
+      local current = device:volume()
+      local new = math.min(100, math.max(0, math.floor(current + diff)))
+      if new > 0 then
+        device:setMuted(false)
+      end
+      hs.alert.closeAll(0.0)
+      hs.alert.show(device:name() .. " Volume " .. new .. "%", {}, 0.5)
+      device:setVolume(new)
+    end
+  end
+
+  hs.hotkey.bind(mash, 'Down', changeVolume(-3))
+  hs.hotkey.bind(mash, 'Up', changeVolume(3))
 
   log.i("misc_shortcuts module started")
 end

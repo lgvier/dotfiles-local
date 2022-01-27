@@ -172,6 +172,7 @@ local function update_menu_bar()
     get_all_space_ids()
   end
   local curr_space = spaces.activeSpace()
+  log.i('curr_space', curr_space)
 
   local t = { }
   local space_count = 0
