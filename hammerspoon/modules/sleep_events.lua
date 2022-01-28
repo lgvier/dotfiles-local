@@ -42,7 +42,15 @@ local function setCaffeineDisplay(state)
 end
 
 local function caffeineClicked()
-  setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"))
+  local on = hs.caffeinate.toggle("displayIdle")
+  if on then
+    local toggleSharingOnSleep = (hostConfig and hostConfig['toggleSharingOnSleep']) or false
+    if toggleSharingOnSleep then
+      -- local result = os.execute("sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.AppleFileServer.plist && sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.smbd.plist");
+      -- log.i(result and "filesharing started" or "filesharing start failed")
+    end
+  end
+  setCaffeineDisplay(on)
 end
 
 module.start = function()
@@ -66,16 +74,14 @@ module.start = function()
       if event == pow.screensDidWake or event == pow.sessionDidBecomeActive or event == pow.screensaverDidStop then
         log.i("awake!")
         module.lastSleep = 0
-        -- local result = os.execute("sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.smbd.plist");
-        -- log.i(result and "filesharing started" or "filesharing start failed")
       elseif event == pow.screensDidSleep or event == pow.systemWillSleep or event == pow.systemWillPowerOff
         or event == pow.sessionDidResignActive or event == pow.screensDidLock then
         local now = os.time()
         if (now - module.lastSleep) > 5 then
           log.i("sleeping...")
           module.lastSleep = now
-          local result = os.execute("sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.smbd.plist");
-          log.i(result and "filesharing stopped" or "filesharing stop failed")
+          -- local result = os.execute("sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.AppleFileServer.plist && sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.smbd.plist");
+          -- log.i(result and "filesharing stopped" or "filesharing stop failed")
         else
           log.d("ignoring sleep event (just processed another one", (now - module.lastSleep), "second(s) ago)");
         end

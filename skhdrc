@@ -8,6 +8,8 @@ alt - backspace : $(yabai -m window $(yabai -m query --windows --window | jq -re
 # Launchpad (mimic i3 shortcut)
 alt - d : skhd --key "cmd - space"
 
+alt - x : /Applications/Firefox.app/Contents/MacOS/firefox -p x -private
+
 # open terminal
 alt - return : /Applications/iTerm.app/Contents/MacOS/iTerm2
 
