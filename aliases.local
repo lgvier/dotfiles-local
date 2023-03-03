@@ -21,6 +21,8 @@ if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
   alias j8='export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)'
   alias j11='export JAVA_HOME=$(/usr/libexec/java_home -v 11)'
   alias j15='export JAVA_HOME=$(/usr/libexec/java_home -v 15)'
+  alias j17='export JAVA_HOME=$(/usr/libexec/java_home -v 17)'
+  alias j18='export JAVA_HOME=$(/usr/libexec/java_home -v 18)'
 fi
 
 # aliases.local is the last script called

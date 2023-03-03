@@ -1,6 +1,8 @@
 local module = {}
 local log = hs.logger.new('misc_shortcuts','debug')
 
+local ext_utils = require("ext.utils")
+
 module.start = function()
 
   -- hs.hotkey.bind(mash, "-", function()
@@ -79,15 +81,12 @@ module.start = function()
   hs.hotkey.bind(mash, '-', function() hs.application.launchOrFocus(hostConfig['app-vpn'] or "Big-IP Edge Client") end)
   hs.hotkey.bind('alt', 'Z', hs.caffeinate.systemSleep)
 
-  local function btConnect(addr)
-    local result = os.execute(hostConfig.binPath .. "/blueutil --connect " .. addr)
-    log.i('bt connected?', result)
-  end
-  hs.hotkey.bind(mash, '1', function() btConnect("00-1b-66-81-85-50") end) -- m
-  hs.hotkey.bind(mash, '2', function() btConnect("00-1d-43-a0-2a-ef") end) -- a
-  hs.hotkey.bind(mash, '3', function() btConnect("00-25-bb-04-11-ba") end) -- t
-  hs.hotkey.bind(mash, '4', function() btConnect("20-04-20-08-1c-74") end) -- f
-  hs.hotkey.bind(mash, '5', function() btConnect("94-08-53-e0-bc-aa") end) -- v
+  hs.hotkey.bind(mash, '1', function() ext_utils.btPair("00-1b-66-81-85-50") end) -- m
+  hs.hotkey.bind({"cmd", "alt"}, '1', function() ext_utils.btUnpair("00-1b-66-81-85-50") end) -- m
+  hs.hotkey.bind(mash, '2', function() ext_utils.btConnect("00-1d-43-a0-2a-ef") end) -- a
+  hs.hotkey.bind(mash, '3', function() ext_utils.btConnect("00-25-bb-04-11-ba") end) -- t
+  hs.hotkey.bind(mash, '4', function() ext_utils.btConnect("20-04-20-08-1c-74") end) -- f
+  hs.hotkey.bind(mash, '5', function() ext_utils.btConnect("94-08-53-e0-bc-aa") end) -- v
 
   function changeVolume(diff)
     -- Change the built-in speakers' volume rather than the default device's

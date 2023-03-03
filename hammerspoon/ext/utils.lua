@@ -1,4 +1,6 @@
 -- https://raw.githubusercontent.com/szymonkaliski/dotfiles/master/Dotfiles/hammerspoon/ext/utils.lua
+local log = hs.logger.new('utils','debug')
+
 local module = {}
 
 -- run function without window animation
@@ -53,6 +55,28 @@ module.spairs = function(t, order)
           return keys[i], t[keys[i]]
       end
   end
+end
+
+
+module.btConnect = function(addr)
+  local result = os.execute(hostConfig.binPath .. "/blueutil --connect " .. addr)
+  log.i('bt connected?', result)
+end
+
+
+module.btPair = function(addr)
+  log.i('bt pair', addr)
+  local result = os.execute(hostConfig.binPath .. "/blueutil --pair " .. addr)
+  log.i('bt paired?', result)
+  local result = os.execute(hostConfig.binPath .. "/blueutil --connect " .. addr)
+  log.i('bt connected?', result)
+end
+
+module.btUnpair = function(addr)
+  local result = os.execute(hostConfig.binPath .. "/blueutil --disconnect " .. addr)
+  log.i('bt disconnected?', result)
+  local result = os.execute(hostConfig.binPath .. "/blueutil --unpair " .. addr)
+  log.i('bt unpaired?', result)
 end
 
 return module

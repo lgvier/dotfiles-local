@@ -22,6 +22,7 @@ local config = {
     ['app-vscode'] = 'Visual Studio Code - Insiders', -- arm64 binaries
     ['app-terminal'] = 'Terminal', -- saves battery
     ['toggleSharingOnSleep'] = true,
+    ['unpairHeadphonesOnSleep'] = false
   }
 }
 local hostName = hs.host.localizedName()

@@ -1,4 +1,7 @@
 local log = hs.logger.new('sleep_events','debug')
+
+local ext_utils = require("ext.utils")
+
 local module = { }
 
 local ampOnIcon = [[ASCII:
@@ -61,8 +64,12 @@ module.start = function()
   setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
 
   local toggleSharingOnSleep = (hostConfig and hostConfig['toggleSharingOnSleep']) or false
-  log.i('toggleSharingOnSleep:', toggleSharingOnSleep)
-  if toggleSharingOnSleep then
+  local unpairHeadphonesOnSleep = true
+  if hostConfig and hostConfig['unpairHeadphonesOnSleep'] ~= nil then 
+    unpairHeadphonesOnSleep = hostConfig['unpairHeadphonesOnSleep']
+  end
+  log.i('toggleSharingOnSleep:', toggleSharingOnSleep, 'unpairHeadphonesOnSleep', unpairHeadphonesOnSleep)
+  if toggleSharingOnSleep or unpairHeadphonesOnSleep then
     local pow = hs.caffeinate.watcher
     module.caffeinate_watcher = hs.caffeinate.watcher.new(function(event)
       log.i("caffeinate event", event)
@@ -80,8 +87,15 @@ module.start = function()
         if (now - module.lastSleep) > 5 then
           log.i("sleeping...")
           module.lastSleep = now
+
+          -- if toggleSharingOnSleep then
           -- local result = os.execute("sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.AppleFileServer.plist && sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.smbd.plist");
           -- log.i(result and "filesharing stopped" or "filesharing stop failed")
+          -- end
+
+          if unpairHeadphonesOnSleep then
+            ext_utils.btUnpair("00-1b-66-81-85-50")
+          end
         else
           log.d("ignoring sleep event (just processed another one", (now - module.lastSleep), "second(s) ago)");
         end
